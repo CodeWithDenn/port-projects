@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An IT asset and maintenance tracker." />
+    <title>IT Asset Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-content">
+        <div>
+          <p class="eyebrow">IT Operations</p>
+          <h1>Asset Tracker</h1>
+          <p class="header-description">
+            Keep devices, assignments, conditions, and maintenance records organized.
+          </p>
+        </div>
+        <div class="header-mark" aria-hidden="true">AT</div>
+      </div>
+    </header>
+
+    <nav class="back-nav">
+      <a href="../../index.html" class="back-button">← Back to Portfolio</a>
+    </nav>
+
+    <main class="container">
+      <section class="dashboard-section">
+        <div class="stats-grid">
+          <article class="stat-card">
+            <h3>Total assets</h3>
+            <p id="total-assets">0</p>
+          </article>
+
+          <article class="stat-card">
+            <h3>Good condition</h3>
+            <p id="good-assets">0</p>
+          </article>
+
+          <article class="stat-card">
+            <h3>Needs repair</h3>
+            <p id="repair-assets">0</p>
+          </article>
+
+          <article class="stat-card">
+            <h3>Damaged</h3>
+            <p id="damaged-assets">0</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="asset-form-section">
+        <form id="asset-form">
+          <div class="form-grid">
+            <label class="form-field"
+              >Asset ID
+              <input
+                type="text"
+                name="assetId"
+                placeholder="e.g LAP-001"
+                required
+            /></label>
+            <label class="form-field"
+              >Device type:
+              <select name="deviceType" required>
+                <option value="" selected disabled>Select device type</option>
+                <option value="laptop">Laptop</option>
+                <option value="desktop">Desktop</option>
+              </select>
+            </label>
+            <label class="form-field"
+              >Brand and model
+              <input
+                type="text"
+                name="brandModel"
+                placeholder="e.g Dell Latitude 7310"
+                required
+            /></label>
+            <label class="form-field"
+              >Assigned user
+              <input
+                type="text"
+                name="assignedUser"
+                placeholder="e.g John Doe"
+                required
+            /></label>
+            <label class="form-field"
+              >Location
+              <input
+                type="text"
+                name="location"
+                placeholder="e.g Office 101"
+                required
+            /></label>
+            <label class="form-field"
+              >Condition:
+              <select name="condition" required>
+                <option value="" selected disabled>Select condition</option>
+                <option value="good">Good</option>
+                <option value="needs repair">Needs Repair</option>
+                <option value="damaged">Damaged</option>
+              </select>
+            </label>
+            <button type="submit" class="button primary">Add Asset</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="asset-list-section">
+        <div class="asset-controls">
+          <div class="control-field">
+            <label for="search">Search:</label>
+            <input
+              type="text"
+              id="search"
+              name="search"
+              placeholder="Search by asset ID..."
+            />
+          </div>
+          <div class="control-field">
+            <label for="deviceType">Device Type:</label>
+            <select name="deviceType" id="deviceType">
+              <option value="all">All</option>
+              <option value="laptop">Laptop</option>
+              <option value="desktop">Desktop</option>
+            </select>
+          </div>
+          <div class="control-field">
+            <label for="condition">Condition:</label>
+            <select name="condition" id="condition">
+              <option value="all">All</option>
+              <option value="good">Good</option>
+              <option value="needs repair">Needs Repair</option>
+              <option value="damaged">Damaged</option>
+            </select>
+          </div>
+          <button type="button" id="clear-filters">Clear filters</button>
+        </div>
+        <p id="empty-state">No assets to display.</p>
+        <div id="asset-list"></div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

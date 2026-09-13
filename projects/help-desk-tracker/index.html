@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help Desk Tracker | Denn Laurenz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="../../index.html">DL<span> / Support</span></a>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <a class="nav-item active" href="#dashboard">Dashboard</a>
+          <a class="nav-item" href="#tickets">All tickets</a>
+          <a class="nav-item" href="#new-ticket">New ticket</a>
+        </nav>
+        <div class="sidebar-note">
+          <span class="status-dot"></span>
+          <div>
+            <strong>Support workspace</strong>
+            <small>Local demo mode</small>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content" id="dashboard">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Support operations</p>
+            <h1>Good morning, Denn.</h1>
+          </div>
+          <a class="back-link" href="../../index.html">Back to portfolio</a>
+        </header>
+
+        <section class="stats-grid" aria-label="Ticket summary">
+          <article class="stat-card">
+            <span class="stat-label">Open tickets</span>
+            <strong id="open-count">0</strong>
+            <small>Need attention</small>
+          </article>
+          <article class="stat-card accent">
+            <span class="stat-label">In progress</span>
+            <strong id="progress-count">0</strong>
+            <small>Currently assigned</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Resolved</span>
+            <strong id="resolved-count">0</strong>
+            <small>Completed tickets</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Total tickets</span>
+            <strong id="total-count">0</strong>
+            <small>Across this workspace</small>
+          </article>
+        </section>
+
+        <section class="workspace-panel" id="tickets">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Ticket queue</p>
+              <h2>Recent requests</h2>
+            </div>
+            <a class="button primary" href="#new-ticket">+ New ticket</a>
+          </div>
+
+          <div class="toolbar">
+            <label class="search-field">
+              <span class="sr-only">Search tickets</span>
+              <input id="search-input" type="search" placeholder="Search tickets..." />
+            </label>
+            <label class="filter-field">
+              <span class="sr-only">Filter by status</span>
+              <select id="status-filter">
+                <option value="all">All statuses</option>
+                <option value="Open">Open</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+              </select>
+            </label>
+            <label class="filter-field">
+              <span class="sr-only">Filter by priority</span>
+              <select id="priority-filter">
+                <option value="all">All priorities</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="ticket-list" id="ticket-list" aria-live="polite"></div>
+          <p class="empty-state" id="empty-state" hidden>No tickets match your filters.</p>
+        </section>
+
+        <section class="workspace-panel form-panel" id="new-ticket">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Create request</p>
+              <h2>Add a ticket</h2>
+            </div>
+          </div>
+          <form id="ticket-form">
+            <div class="form-grid">
+              <label>
+                Subject
+                <input name="subject" type="text" placeholder="Describe the issue" required />
+              </label>
+              <label>
+                Requester
+                <input name="requester" type="text" placeholder="Person's name" required />
+              </label>
+              <label>
+                Category
+                <select name="category">
+                  <option>Hardware</option>
+                  <option>Software</option>
+                  <option>Access</option>
+                  <option>Network</option>
+                </select>
+              </label>
+              <label>
+                Priority
+                <select name="priority">
+                  <option>Medium</option>
+                  <option>High</option>
+                  <option>Low</option>
+                </select>
+              </label>
+            </div>
+            <button class="button primary" type="submit">Create ticket</button>
+            <p class="form-message" id="form-message" role="status"></p>
+          </form>
+        </section>
+      </main>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Zed's Nest</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="index.html">Zed's Nest</a></h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="menu-page">
+        <div class="menu-container">
+            <!-- Menu Items Section -->
+            <section class="menu-items">
+                <!-- <h1>Our Menu</h1> -->
+                
+                <div class="category">
+                    <h2>Coffee & Beverages</h2>
+                    <div class="items-grid">
+                        <div class="menu-item">
+                            <img src="assets/images/coke-float.jpg" alt="Coke Float" class="item-image">
+                            <h3>Coke Float</h3>
+                            <p class="price">₱100</p>
+                            <select class="flavour-select" data-flavours="Regular">
+                                <option value="">Select flavour</option>
+                                <option value="Regular">Regular</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Coke Float" data-price="100">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <img src="assets/images/iced-coffee.jpg" alt="iced-coffee" class="item-image">
+                            <h3>Iced Coffee</h3>
+                            <p class="price">₱100</p>
+                            <select class="flavour-select" data-flavours="Regular,Less Sugar">
+                                <option value="">Select flavour</option>
+                                <option value="Regular">Regular</option>
+                                <option value="Less Sugar">Less Sugar</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Iced Coffee" data-price="100">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <img src="assets/images/lemonada.jpg" alt="Lemonada" class="item-image">
+                            <h3>Lemonada</h3>
+                            <p class="price">₱25</p>
+                            <select class="flavour-select" data-flavours="Green Tea,Blueberry,Strawberry">
+                                <option value="">Select flavour</option>
+                                <option value="Green Tea">Green Tea</option>
+                                <option value="Blueberry">Blueberry</option>
+                                <option value="Strawberry">Strawberry</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Lemonada" data-price="25">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <img src="assets/images/milktea.jpg" alt="Milk Tea" class="item-image">
+                            <h3>Milk Tea</h3>
+                            <p class="price">₱30</p>
+                            <select class="flavour-select" data-flavours="Green Tea,Blueberry,Strawberry">
+                                <option value="">Select flavour</option>
+                                <option value="Green Tea">Green Tea</option>
+                                <option value="Blueberry">Blueberry</option>
+                                <option value="Strawberry">Strawberry</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Milk Tea" data-price="50">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <img src="assets/images/sodapop.jpg" alt="Soda Pop" class="item-image">
+                            <h3>Soda Pop</h3>
+                            <p class="price">₱20</p>
+                            <select class="flavour-select" data-flavours="Regular">
+                                <option value="">Select flavour</option>
+                                <option value="Regular">Regular</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Soda Pop" data-price="35">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category">
+                    <h2>Meals & Bites</h2>
+                    <div class="items-grid">
+                        <div class="menu-item">
+                            <img src="assets/images/corndog.jpg" alt="corndog" class="item-image">
+                            <h3>Corndog</h3>
+                            <p class="price">₱35</p>
+                            <select class="flavour-select" data-flavours="Regular">
+                                <option value="">Select type</option>
+                                <option value="Regular">Regular</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Corndog" data-price="35">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <img src="assets/images/natchos1.jpg" alt="Nachos" class="item-image">
+                            <h3>Nachos</h3>
+                            <p class="price">₱50</p>
+                            <select class="flavour-select" data-flavours="Regular">
+                                <option value="">Select type</option>
+                                <option value="Regular">Regular</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Nachos" data-price="50">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <img src="assets/images/takoyaki.jpg" alt="Takoyaki" class="item-image">
+                            <h3>Takoyaki</h3>
+                            <p class="price">₱50</p>
+                            <select class="flavour-select" data-flavours="Regular">
+                                <option value="">Select variant</option>
+                                <option value="Regular">Regular</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Takoyaki" data-price="50">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+                        <div class="menu-item">
+                            <img src="assets/images/fries.jpg" alt="Fries" class="item-image">
+                            <h3>Fries</h3>
+                            <p class="price">₱35</p>
+                            <select class="flavour-select" data-flavours="Regular">
+                                <option value="">Select variant</option>
+                                <option value="Regular">Cheese</option>
+                                <option value="Regular">Sweet n Sour</option>
+                                <option value="Regular">+10 Loaded</option>
+                            </select>
+                            <div class="item-actions">
+                                <input type="number" min="0" value="0" class="qty-input" data-item="Fries" data-price="35">
+                                <button class="add-btn">Add to Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Order Summary Section -->
+            <aside class="order-summary">
+                <h2>Your Order</h2>
+                <div id="orderList" class="order-list">
+                    <p class="empty-message">No items added yet</p>
+                </div>
+                <div class="order-total">
+                    <p><strong>Total: ₱<span id="totalPrice">0</span></strong></p>
+                </div>
+                <div class="order-actions">
+                    <button id="copyBtn" class="copy-btn">Copy Order</button>
+                    <a id="messengerBtn" href="https://m.me" target="_blank" class="messenger-btn">Send via Messenger</a>
+                </div>
+                <button id="clearBtn" class="clear-btn">Clear Order</button>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Zed's Nest. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

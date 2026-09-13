@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Your Memory Page</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h1>Create your page</h1>
+    <p class="sub">A private page for your favorite memories together. Base package &mdash; ₱99.</p>
+
+    <form id="order-form">
+      <label for="names">Your names</label>
+      <input type="text" id="names" placeholder="Juan &amp; Maria" maxlength="100" required />
+
+      <label for="slug">Page link</label>
+      <input type="text" id="slug" placeholder="juan-and-maria" maxlength="50" required />
+      <div class="hint">Your page will live at: yoursite.netlify.app/view.html?slug=<span id="slug-preview">juan-and-maria</span> (letters, numbers, and hyphens only)</div>
+
+      <label for="email">Your email</label>
+      <input type="email" id="email" placeholder="you@email.com" maxlength="100" required />
+
+      <label for="password">Page password (optional)</label>
+      <input type="password" id="password" placeholder="something only you two know" maxlength="50" />
+      <div class="hint">Leave blank to keep the page public with just the link. Set one and only people who know it can view your page. (Case-sensitive)</div>
+
+      <label for="photos">Photos (up to 10 for the base package)</label>
+      <input type="file" id="photos" accept="image/*" multiple required />
+      <div class="hint">Select 1-10 image files</div>
+
+      <label for="ref">GCash / Maya reference number</label>
+      <input type="text" id="ref" placeholder="After paying ₱99 to [your GCash/Maya number], paste the reference number here" required />
+      <div class="hint">We manually verify payments &mdash; your page goes live within 24 hours of a matching reference number.</div>
+
+      <button type="submit" id="submit-btn">Submit order</button>
+      <div class="status" id="status"></div>
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="order.js"></script>
+</body>
+</html>
