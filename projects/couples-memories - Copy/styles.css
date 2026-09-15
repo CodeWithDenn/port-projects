@@ -1,13 +1,38 @@
-/* styles for the main memories page — Option 1 palette: light lavender + deep purple/plum accents */
+/* styles for the main memories page — default (red/Valentine's) palette, swap via body[data-theme] */
 
 :root {
   --color-bg: #faf7fc;
-  --color-card: #f3ecf9;
+  --color-card: #facece;
   --color-text: #1e1a24;
-  --color-accent: #6b3fa0;
+  --color-accent: #c24646;
   --color-accent-dark: #2a2430;
   --color-muted: #7a7086;
   --color-border: #ddd0ea;
+}
+
+/* preset themes — buyer picks one via the data-theme attribute on <body> */
+body[data-theme="purple"] {
+  --color-bg: #faf7fc;
+  --color-card: #f3ecf9;
+  --color-accent: #6b3fa0;
+  --color-accent-dark: #2a2430;
+  --color-border: #ddd0ea;
+}
+
+body[data-theme="blue"] {
+  --color-bg: #f5f9fc;
+  --color-card: #e6f0fa;
+  --color-accent: #3f6fa0;
+  --color-accent-dark: #1e2a33;
+  --color-border: #cfe0f0;
+}
+
+body[data-theme="gold"] {
+  --color-bg: #fdfaf3;
+  --color-card: #faf3e0;
+  --color-accent: #a0813f;
+  --color-accent-dark: #332b1e;
+  --color-border: #ecdcb0;
 }
 
 * {

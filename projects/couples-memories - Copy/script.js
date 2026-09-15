@@ -1,7 +1,51 @@
 // behavior for the main memories page (e.g. days-together counter)
+// all buyer-editable content/values live in config.js — do not hardcode data here
 
-// anniversary start date — update this to the real date/time
-const ANNIVERSARY = new Date("2026-04-23T00:00:00");
+document.body.dataset.theme = CONFIG.theme;
+
+document.getElementById("hero-names").textContent = CONFIG.names;
+document.getElementById("hero-subtitle").textContent = `Together since ${CONFIG.anniversaryDisplay}`;
+document.getElementById("footer-note").textContent = CONFIG.footerNote;
+
+const timelineList = document.querySelector(".timeline-list");
+CONFIG.timeline.forEach((entry) => {
+  const li = document.createElement("li");
+  li.className = "timeline-item";
+  li.innerHTML = `
+    ${entry.photo ? `<img src="${entry.photo}" alt="${entry.title}" class="timeline-photo" />` : ""}
+    <div class="timeline-content">
+      <span class="timeline-date">${entry.date}</span>
+      <h3 class="timeline-title">${entry.title}</h3>
+      <p>${entry.description}</p>
+    </div>
+  `;
+  timelineList.appendChild(li);
+});
+
+const galleryGrid = document.querySelector(".gallery-grid");
+CONFIG.gallery.forEach((photo) => {
+  const figure = document.createElement("figure");
+  figure.className = photo.wide ? "gallery-item gallery-item--wide" : "gallery-item";
+  figure.innerHTML = `
+    <img src="${photo.src}" alt="${photo.alt}" />
+    <figcaption>${photo.caption}</figcaption>
+  `;
+  galleryGrid.appendChild(figure);
+});
+
+const messageList = document.querySelector(".message-list");
+CONFIG.messages.forEach((message) => {
+  const li = document.createElement("li");
+  li.className = "message-card";
+  li.innerHTML = `
+    <p>"${message.text}"</p>
+    <span class="message-author">— ${message.author}</span>
+  `;
+  messageList.appendChild(li);
+});
+
+// anniversary start date comes from config.js
+const ANNIVERSARY = new Date(CONFIG.anniversaryDate);
 
 function getElapsed(start, now) {
   let years = now.getFullYear() - start.getFullYear();
