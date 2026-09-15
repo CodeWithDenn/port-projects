@@ -6,10 +6,10 @@ const CONFIG = {
   // Color theme — options: "red" (default), "purple", "blue", "gold"
   theme: "red",
 
-    // Lock screen — default code is 2026-01-01. Replace codeHash when setting a different code.
+    // Lock screen — change this six-digit code to any date or number they both know.
     lock: {
       storageKey: "couples-memories-template-unlocked",
-      codeHash: "c1c6cbc17ebe797477af33cafc74879e27be65fb4de646bc4ba3d65562468d5b",
+      code: "010126",
     },
 
   // Shown in the header

@@ -17,7 +17,7 @@
       <p class="lock-prompt">Enter our special date to unlock the story.</p>
       <form id="lock-form" class="lock-form">
         <label for="lock-code">Special date</label>
-          <input id="lock-code" name="lock-code" type="password" inputmode="text" autocomplete="off" placeholder="MM/DD/YY" pattern="\d{2}/\d{2}/\d{2}" required />
+          <input id="lock-code" name="lock-code" type="password" inputmode="numeric" autocomplete="off" placeholder="MMDDYY" pattern="\d{6}" maxlength="6" required />
         <button type="submit">Unlock</button>
         <p id="lock-error" class="lock-error" role="alert" hidden></p>
       </form>
@@ -25,7 +25,9 @@
     <script>
       window.LOCK_CONFIG = {
         storageKey: "couples-memories-denn-bebelyn-unlocked",
-          codeHash: "3665cbec89060b84d378f1818d11c35b9fde423ad87613f2c2fd94f8922f66d5",
+        //to make a new password, do this in the terminal of vscode
+        //node -e "const crypto=require('crypto'); console.log(crypto.createHash('sha256').update('01/01/26').digest('hex'))"  
+          codeHash: "6e4cc9b7927c7a6af3914ab27347071d41c6f86ac84a99baa45921660e9e12be",
         destination: "memories.html",
       };
     </script>
