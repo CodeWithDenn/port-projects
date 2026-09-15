@@ -1,4 +1,14 @@
-/* styles for the main memories page — structural/wireframe pass, visual design (colors/fonts) still to come */
+/* styles for the main memories page — Option 1 palette: light lavender + deep purple/plum accents */
+
+:root {
+  --color-bg: #faf7fc;
+  --color-card: #f3ecf9;
+  --color-text: #1e1a24;
+  --color-accent: #6b3fa0;
+  --color-accent-dark: #2a2430;
+  --color-muted: #7a7086;
+  --color-border: #ddd0ea;
+}
 
 * {
   box-sizing: border-box;
@@ -6,30 +16,37 @@
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: "Nunito", system-ui, sans-serif;
   line-height: 1.5;
-  color: #222;
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
 /* --- Header / hero --- */
 .hero {
   padding: 3rem 1.5rem;
   text-align: center;
-  background: #f2f2f2;
-  border-bottom: 2px dashed #ccc;
+  background: var(--color-card);
+  border-bottom: 2px dashed var(--color-border);
 }
 
 .hero h1 {
+  font-family: "Dancing Script", cursive;
+  font-size: 3.5rem;
+  font-weight: 700;
   margin: 0 0 0.25rem;
+  color: var(--color-accent);
 }
 
 .hero .subtitle {
+  font-family: "Nunito", sans-serif;
   margin: 0 0 0.5rem;
-  color: #555;
+  color: var(--color-muted);
 }
 
 #days-counter {
   font-weight: bold;
+  color: var(--color-accent-dark);
 }
 
 /* --- Main content wrapper --- */
@@ -41,7 +58,7 @@ main {
 
 main section {
   padding: 2rem 0;
-  border-bottom: 2px dashed #ccc;
+  border-bottom: 2px dashed var(--color-border);
 }
 
 main section:last-child {
@@ -50,35 +67,47 @@ main section:last-child {
 
 main h2 {
   margin-top: 0;
+  color: var(--color-accent);
 }
 
 /* --- Gallery --- */
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 }
 
 .gallery-item {
+  flex: 1 1 240px;
   margin: 0;
-  background: #fafafa;
-  border: 1px solid #ddd;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
+}
+
+/* add this class to a figure whose photo is wider than the others — same height, just more width */
+.gallery-item--wide {
+  flex: 2 1 480px;
 }
 
 .gallery-item img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 180px;
   object-fit: cover;
   background: #e0e0e0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.gallery-item img:hover {
+  transform: scale(1.05);
 }
 
 .gallery-item figcaption {
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
-  color: #555;
+  color: var(--color-muted);
 }
 
 /* --- Messages --- */
@@ -91,8 +120,8 @@ main h2 {
 }
 
 .message-card {
-  background: #fafafa;
-  border: 1px solid #ddd;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1rem;
 }
@@ -103,7 +132,7 @@ main h2 {
 
 .message-author {
   font-size: 0.9rem;
-  color: #777;
+  color: var(--color-muted);
 }
 
 /* --- Timeline --- */
@@ -118,8 +147,8 @@ main h2 {
 .timeline-item {
   display: flex;
   gap: 1rem;
-  background: #fafafa;
-  border: 1px solid #ddd;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 1rem;
 }
@@ -141,17 +170,17 @@ main h2 {
 /* photo is optional per entry, so entries without one just show text */
 .timeline-item:not(:has(.timeline-photo)) .timeline-content {
   width: 100%;
-
 }
 
 .timeline-date {
   display: block;
   font-size: 0.85rem;
-  color: #777;
+  color: var(--color-muted);
 }
 
 .timeline-title {
   margin: 0.1rem 0 0.35rem;
+  color: var(--color-accent-dark);
 }
 
 .timeline-content p {
@@ -163,8 +192,43 @@ main h2 {
 footer {
   padding: 2rem 1.5rem;
   text-align: center;
-  color: #777;
+  color: var(--color-muted);
   font-size: 0.9rem;
+  background: var(--color-card);
+}
+
+/* --- Photo modal --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
 }
 
 /* --- Small screens --- */

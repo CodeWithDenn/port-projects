@@ -49,3 +49,33 @@ function updateCounter() {
 
 updateCounter();
 setInterval(updateCounter, 1000);
+
+// gallery photo modal
+const modal = document.getElementById("photo-modal");
+const modalImage = document.getElementById("modal-image");
+const modalClose = document.getElementById("modal-close");
+
+function openModal(src, alt) {
+  modalImage.src = src;
+  modalImage.alt = alt;
+  modal.classList.remove("hidden");
+}
+
+function closeModal() {
+  modal.classList.add("hidden");
+  modalImage.src = "";
+}
+
+document.querySelectorAll(".gallery-item img").forEach((img) => {
+  img.addEventListener("click", () => {
+    if (img.src) openModal(img.src, img.alt);
+  });
+});
+
+modalClose.addEventListener("click", closeModal);
+modal.addEventListener("click", (event) => {
+  if (event.target === modal) closeModal();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeModal();
+});
