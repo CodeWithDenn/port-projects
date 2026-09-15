@@ -1,0 +1,179 @@
+/* styles for the main memories page — structural/wireframe pass, visual design (colors/fonts) still to come */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  color: #222;
+}
+
+/* --- Header / hero --- */
+.hero {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background: #f2f2f2;
+  border-bottom: 2px dashed #ccc;
+}
+
+.hero h1 {
+  margin: 0 0 0.25rem;
+}
+
+.hero .subtitle {
+  margin: 0 0 0.5rem;
+  color: #555;
+}
+
+#days-counter {
+  font-weight: bold;
+}
+
+/* --- Main content wrapper --- */
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+main section {
+  padding: 2rem 0;
+  border-bottom: 2px dashed #ccc;
+}
+
+main section:last-child {
+  border-bottom: none;
+}
+
+main h2 {
+  margin-top: 0;
+}
+
+/* --- Gallery --- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.gallery-item {
+  margin: 0;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background: #e0e0e0;
+}
+
+.gallery-item figcaption {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* --- Messages --- */
+.message-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.message-card {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.message-card p {
+  margin: 0 0 0.5rem;
+}
+
+.message-author {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* --- Timeline --- */
+.timeline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1rem;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* alternate photo side so the timeline doesn't feel one-directional */
+.timeline-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timeline-photo {
+  flex: 0 0 35%;
+  aspect-ratio: 4 / 3;
+  width: 35%;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #e0e0e0;
+}
+
+/* photo is optional per entry, so entries without one just show text */
+.timeline-item:not(:has(.timeline-photo)) .timeline-content {
+  width: 100%;
+
+}
+
+.timeline-date {
+  display: block;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.timeline-title {
+  margin: 0.1rem 0 0.35rem;
+}
+
+.timeline-content p {
+  margin: 0;
+  text-align: justify;
+}
+
+/* --- Footer --- */
+footer {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* --- Small screens --- */
+@media (max-width: 480px) {
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  main {
+    padding: 0 1rem;
+  }
+}
