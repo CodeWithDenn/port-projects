@@ -263,6 +263,76 @@ footer {
   cursor: pointer;
 }
 
+/* --- Lock screen --- */
+.lock-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.lock-panel {
+  width: min(100%, 420px);
+  padding: 2.5rem;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.lock-kicker {
+  margin: 0 0 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lock-panel h1 {
+  margin: 0;
+  font-family: "Dancing Script", cursive;
+  font-size: 3rem;
+  color: var(--color-accent);
+}
+
+.lock-prompt {
+  margin: 0.75rem 0 1.5rem;
+  color: var(--color-muted);
+}
+
+.lock-form {
+  display: grid;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.lock-form input,
+.lock-form button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 0.85rem;
+  font: inherit;
+  border-radius: 6px;
+}
+
+.lock-form input {
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.lock-form button {
+  border: 0;
+  background: var(--color-accent-dark);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.lock-error {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+}
+
 /* --- Small screens --- */
 @media (max-width: 480px) {
   .hero {

@@ -6,6 +6,11 @@
     <!-- keep this page out of search indexes since it's meant to be private -->
     <meta name="robots" content="noindex, nofollow" />
     <title>Our Memories</title>
+      <script>
+        if (localStorage.getItem("couples-memories-denn-bebelyn-unlocked") !== "true") {
+          window.location.replace("index.html");
+        }
+      </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

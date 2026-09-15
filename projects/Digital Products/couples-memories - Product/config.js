@@ -6,6 +6,12 @@ const CONFIG = {
   // Color theme — options: "red" (default), "purple", "blue", "gold"
   theme: "red",
 
+    // Lock screen — default code is 2026-01-01. Replace codeHash when setting a different code.
+    lock: {
+      storageKey: "couples-memories-template-unlocked",
+      codeHash: "c1c6cbc17ebe797477af33cafc74879e27be65fb4de646bc4ba3d65562468d5b",
+    },
+
   // Shown in the header
   names: "Placeholder & Placeholder",
   anniversaryDisplay: "Month DD, YYYY", // text shown under the names
@@ -21,7 +27,7 @@ const CONFIG = {
       date: "January 01, 2026",
       title: "Placeholder Title",
       description: "Placeholder description of this moment.",
-      photo: "",
+        photo: "",
     },
     {
       date: "January 01, 2026",

@@ -6,6 +6,12 @@
     <!-- keep this page out of search indexes since it's meant to be private -->
     <meta name="robots" content="noindex, nofollow" />
     <title>Our Memories</title>
+      <script src="config.js"></script>
+      <script>
+        if (localStorage.getItem(CONFIG.lock.storageKey) !== "true") {
+          window.location.replace("index.html");
+        }
+      </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -80,7 +86,6 @@
       <img id="modal-image" src="" alt="" class="modal-image" />
     </div>
 
-    <script src="config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
