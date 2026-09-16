@@ -6,12 +6,12 @@
     <!-- keep this page out of search indexes since it's meant to be private -->
     <meta name="robots" content="noindex, nofollow" />
     <title>Our Memories</title>
-      <script src="config.js"></script>
-      <script>
-        if (localStorage.getItem(CONFIG.lock.storageKey) !== "true") {
-          window.location.replace("index.html");
-        }
-      </script>
+    <script src="config.js"></script>
+    <script>
+      if (localStorage.getItem(CONFIG.lock.storageKey) !== "true") {
+        window.location.replace("index.html");
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,6 +19,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="shortcut icon"
+      href="assets/icon/couple-memories-icon.png"
+      type="image/x-icon"
+    />
   </head>
   <!-- theme, names, dates, photos, and text are all set in config.js — this file just renders them -->
   <body>
@@ -51,7 +56,9 @@
           <span class="counter-label">Seconds</span>
         </div>
       </div>
-      <button type="button" id="lock-page-button" class="lock-page-button">Lock page</button>
+      <button type="button" id="lock-page-button" class="lock-page-button">
+        Lock page
+      </button>
     </header>
 
     <main>
