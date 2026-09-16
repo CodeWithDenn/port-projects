@@ -1,0 +1,114 @@
+COUPLE'S MEMORY WEBSITE TEMPLATE
+=================================
+
+Welcome! This folder is your editable website template.
+
+IMPORTANT
+---------
+Edit config.js for names, dates, colors, stories, photos, messages, and the lock code.
+Do not edit script.js unless you know JavaScript.
+
+1. EDIT YOUR DETAILS
+--------------------
+Open config.js and change the values inside CONFIG.
+
+You can edit:
+- theme: "red", "purple", "blue", or "gold"
+- names
+- anniversaryDisplay: the date shown on the page
+- anniversaryDate: use this format: YYYY-MM-DDTHH:MM:SS
+- footerNote
+- lock.code: the six-digit code used on the lock screen
+
+Keep text inside quotation marks. Keep commas between entries in the lists.
+
+Example:
+  names: "Alex & Sam",
+  anniversaryDisplay: "February 14, 2026",
+  anniversaryDate: "2026-02-14T00:00:00",
+  lock: {
+    storageKey: "couples-memories-template-unlocked",
+    code: "021426",
+  },
+
+2. ADD YOUR PHOTOS
+------------------
+Place your image files inside:
+  assets/images/
+
+Then use the relative path in config.js:
+  photo: "assets/images/first-date.jpg"
+  src: "assets/images/beach-day.jpg"
+
+Use simple file names without spaces when possible:
+  first-date.jpg
+  our-trip.png
+
+For every photo, update the alt text so it describes the image.
+Set wide: true for a landscape photo that should take more horizontal space.
+
+3. ADD MORE MEMORIES
+--------------------
+To add another timeline entry, gallery photo, or message:
+
+- Copy an existing object in the matching list in config.js.
+- Paste it below the existing entry.
+- Change its values.
+- Keep a comma after each entry except the last one.
+
+Timeline entries support:
+  date, title, description, photo
+
+Gallery entries support:
+  src, alt, caption, wide
+
+Message entries support:
+  text, author
+
+You may add or remove as many entries as you want.
+
+4. TEST THE WEBSITE
+-------------------
+Open index.html in a browser.
+
+Enter the six-digit code from config.js. Confirm that:
+- The lock opens memories.html.
+- Names, dates, stories, photos, and messages appear.
+- The counter is running.
+- Photos open when clicked or tapped.
+- The Lock page button returns to the lock screen.
+- The page looks good on a phone-sized browser window.
+
+If the page is blank, check the browser console and look for a missing comma,
+missing quotation mark, or a photo path that does not match the file name.
+
+5. DEPLOY TO NETLIFY
+--------------------
+1. Create a free account at netlify.com.
+2. Choose Add new site, then Deploy manually.
+3. Drag this entire product folder into the upload area.
+4. Wait for deployment to finish.
+5. Open the generated netlify.app link and test the lock again.
+
+Keep the folder structure unchanged when uploading. The index.html file must
+remain in the main folder, beside config.js, lock.js, memories.html, script.js,
+and styles.css.
+
+6. UPDATING THE LIVE WEBSITE
+----------------------------
+Make edits to your local copy first.
+Test the changes.
+Then drag the updated folder to the site's Netlify deploy area again.
+The live site does not update automatically when you edit local files.
+
+PRIVACY NOTE
+------------
+The lock screen is a casual privacy feature for personal memories. This is a
+static website, not a secure authentication system. Do not use it for sensitive,
+confidential, or legally protected information.
+
+SUPPORT
+-------
+This DIY template includes the files and this setup guide.
+Personal customization, deployment help, and later edit batches are separate
+services according to the seller's current package and pricing.

@@ -28,6 +28,7 @@ body {
   text-align: center;
   background: var(--color-card);
   border-bottom: 2px dashed var(--color-border);
+  animation: page-fade-in 0.8s ease-out both;
 }
 
 .hero h1 {
@@ -81,6 +82,35 @@ body {
   color: var(--color-muted);
 }
 
+.lock-page-button {
+  margin-top: 1rem;
+  padding: 0.45rem 0.8rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.lock-page-button:hover {
+  color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* --- Main content wrapper --- */
 main {
   max-width: 1000px;
@@ -91,6 +121,19 @@ main {
 main section {
   padding: 2rem 0;
   border-bottom: 2px dashed var(--color-border);
+  animation: page-rise-in 0.7s ease-out both;
+}
+
+main section:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+main section:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+main section:nth-child(3) {
+  animation-delay: 0.45s;
 }
 
 main section:last-child {
@@ -227,6 +270,23 @@ footer {
   color: var(--color-muted);
   font-size: 0.9rem;
   background: var(--color-card);
+  animation: page-rise-in 0.7s ease-out 0.6s both;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes page-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* --- Photo modal --- */
@@ -278,6 +338,7 @@ footer {
   background: #ffffff;
   border: 1px solid var(--color-border);
   border-radius: 8px;
+  animation: lock-panel-entrance 0.7s ease-out both;
 }
 
 .lock-kicker {
@@ -304,6 +365,7 @@ footer {
   display: grid;
   gap: 0.75rem;
   text-align: left;
+  animation: lock-form-entrance 0.6s ease-out 0.2s both;
 }
 
 .lock-form input,
@@ -331,6 +393,42 @@ footer {
   margin: 0;
   color: var(--color-accent);
   font-size: 0.9rem;
+}
+
+@keyframes lock-panel-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lock-form-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lock-panel,
+  .lock-form,
+  .hero,
+  main section,
+  footer,
+  .reveal-on-scroll {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* --- Small screens --- */

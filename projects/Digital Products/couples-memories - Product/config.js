@@ -27,22 +27,22 @@ const CONFIG = {
       date: "January 01, 2026",
       title: "Placeholder Title",
       description: "Placeholder description of this moment.",
-        photo: "",
+        photo: "assets/images/placeholder-image.jpg",
     },
     {
       date: "January 01, 2026",
       title: "Placeholder Title",
       description: "Placeholder description of this moment.",
-      photo: "",
+      photo: "assets/images/placeholder-image.jpg",
     },
   ],
 
   // "Photos" section — add or remove entries as needed
   // set wide: true to make a photo take up more horizontal space (same height as the others)
   gallery: [
-    { src: "", alt: "Placeholder photo caption", caption: "Placeholder", wide: true },
-    { src: "", alt: "Placeholder photo caption", caption: "Placeholder", wide: false },
-    { src: "", alt: "Placeholder photo caption", caption: "Placeholder", wide: false },
+    { src: "assets/images/placeholder-image.jpg", alt: "Placeholder photo caption", caption: "Placeholder", wide: true },
+    { src: "assets/images/placeholder-image.jpg", alt: "Placeholder photo caption", caption: "Placeholder", wide: false },
+    { src: "assets/images/placeholder-image.jpg", alt: "Placeholder photo caption", caption: "Placeholder", wide: false },
   ],
 
   // "Messages" section — add or remove entries as needed

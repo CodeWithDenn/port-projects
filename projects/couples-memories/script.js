@@ -80,3 +80,30 @@ modal.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeModal();
 });
+
+document.getElementById("lock-page-button").addEventListener("click", () => {
+  localStorage.removeItem("couples-memories-denn-bebelyn-unlocked");
+  window.location.replace("index.html");
+});
+
+const revealItems = document.querySelectorAll(
+  "main section, .timeline-item, .gallery-item, .message-card"
+);
+
+revealItems.forEach((item, index) => {
+  item.classList.add("reveal-on-scroll");
+  item.style.setProperty("--reveal-delay", `${(index % 3) * 0.08}s`);
+});
+
+const revealObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    });
+  },
+  { threshold: 0.12 }
+);
+
+revealItems.forEach((item) => revealObserver.observe(item));
