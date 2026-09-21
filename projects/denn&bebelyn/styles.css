@@ -1,0 +1,447 @@
+/* styles for the main memories page — Option 1 palette: light lavender + deep purple/plum accents */
+
+:root {
+  --color-bg: #faf7fc;
+  --color-card: #f3ecf9;
+  --color-text: #1e1a24;
+  --color-accent: #6b3fa0;
+  --color-accent-dark: #2a2430;
+  --color-muted: #7a7086;
+  --color-border: #ddd0ea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Nunito", system-ui, sans-serif;
+  line-height: 1.5;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* --- Header / hero --- */
+.hero {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  background: var(--color-card);
+  border-bottom: 2px dashed var(--color-border);
+  animation: page-fade-in 0.8s ease-out both;
+}
+
+.hero h1 {
+  font-family: "Dancing Script", cursive;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem;
+  color: var(--color-accent);
+}
+
+.hero .subtitle {
+  font-family: "Nunito", sans-serif;
+  margin: 0 0 0.5rem;
+  color: var(--color-muted);
+}
+
+.counter {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.counter-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  padding: 0.6rem 0.5rem;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.counter-value {
+  font-family: "Nunito", sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+  line-height: 1;
+}
+
+.counter-label {
+  margin-top: 0.25rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-muted);
+}
+
+.lock-page-button {
+  margin-top: 1rem;
+  padding: 0.45rem 0.8rem;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.lock-page-button:hover {
+  color: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Main content wrapper --- */
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+main section {
+  padding: 2rem 0;
+  border-bottom: 2px dashed var(--color-border);
+  animation: page-rise-in 0.7s ease-out both;
+}
+
+main section:nth-child(1) {
+  animation-delay: 0.15s;
+}
+
+main section:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+main section:nth-child(3) {
+  animation-delay: 0.45s;
+}
+
+main section:last-child {
+  border-bottom: none;
+}
+
+main h2 {
+  margin-top: 0;
+  color: var(--color-accent);
+}
+
+/* --- Gallery --- */
+.gallery-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.gallery-item {
+  flex: 1 1 240px;
+  margin: 0;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* add this class to a figure whose photo is wider than the others — same height, just more width */
+.gallery-item--wide {
+  flex: 2 1 480px;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  background: #e0e0e0;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.gallery-item img:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item figcaption {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+/* --- Messages --- */
+.message-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.message-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.message-card p {
+  margin: 0 0 0.5rem;
+}
+
+.message-author {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+/* --- Timeline --- */
+.timeline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.timeline-item {
+  display: flex;
+  gap: 1rem;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* alternate photo side so the timeline doesn't feel one-directional */
+.timeline-item:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.timeline-photo {
+  flex: 0 0 35%;
+  aspect-ratio: 4 / 3;
+  width: 35%;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #e0e0e0;
+}
+
+/* photo is optional per entry, so entries without one just show text */
+.timeline-item:not(:has(.timeline-photo)) .timeline-content {
+  width: 100%;
+}
+
+.timeline-date {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.timeline-title {
+  margin: 0.1rem 0 0.35rem;
+  color: var(--color-accent-dark);
+}
+
+.timeline-content p {
+  margin: 0;
+  text-align: justify;
+}
+
+/* --- Footer --- */
+footer {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  background: var(--color-card);
+  animation: page-rise-in 0.7s ease-out 0.6s both;
+}
+
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes page-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Photo modal --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-image {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* --- Lock screen --- */
+.lock-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.lock-panel {
+  width: min(100%, 420px);
+  padding: 2.5rem;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  animation: lock-panel-entrance 0.7s ease-out both;
+}
+
+.lock-kicker {
+  margin: 0 0 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.lock-panel h1 {
+  margin: 0;
+  font-family: "Dancing Script", cursive;
+  font-size: 3rem;
+  color: var(--color-accent);
+}
+
+.lock-prompt {
+  margin: 0.75rem 0 1.5rem;
+  color: var(--color-muted);
+}
+
+.lock-form {
+  display: grid;
+  gap: 0.75rem;
+  text-align: left;
+  animation: lock-form-entrance 0.6s ease-out 0.2s both;
+}
+
+.lock-form input,
+.lock-form button {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.7rem 0.85rem;
+  font: inherit;
+  border-radius: 6px;
+}
+
+.lock-form input {
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.pin-inputs { display: flex; justify-content: center; gap: 0.5rem; }
+.pin-digit { width: 42px !important; min-height: 52px !important; padding: 0.5rem !important; border: 2px solid var(--color-border) !important; border-radius: 8px !important; background: #ffffff; text-align: center; font-size: 1.35rem; font-weight: 700; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+.pin-digit:focus { border-color: var(--color-accent) !important; box-shadow: 0 0 0 3px rgba(107, 63, 160, 0.15); transform: translateY(-2px); }
+
+.lock-form button {
+  border: 0;
+  background: var(--color-accent-dark);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.lock-error {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 0.9rem;
+}
+
+@keyframes lock-panel-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lock-form-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lock-panel,
+  .lock-form,
+  .hero,
+  main section,
+  footer,
+  .reveal-on-scroll {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* --- Small screens --- */
+@media (max-width: 480px) {
+  .hero {
+    padding: 2rem 1rem;
+  }
+
+  main {
+    padding: 0 1rem;
+  }
+}
