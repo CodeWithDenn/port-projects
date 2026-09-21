@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="FreshRide Mobile Detailing brings professional car cleaning to your home or workplace."
+    />
+    <title>FreshRide Mobile Detailing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="assets/icon/freshride-icon.png" type="image/x-icon">
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav container" aria-label="Main navigation">
+        <a class="brand" href="#top">Fresh<span>Ride</span></a>
+        <div class="nav-links">
+          <a href="#services">Services</a>
+          <a href="#why-us">Why FreshRide</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="button button-small" href="#contact">Get a quote</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy hero-entrance">
+            <p class="eyebrow">Mobile detailing in your neighborhood</p>
+            <h1>Your clean car, without the waiting room.</h1>
+            <p class="lead">
+              FreshRide brings careful interior and exterior detailing to your
+              home or workplace, so your day keeps moving while your car gets
+              the attention it deserves.
+            </p>
+            <div class="hero-actions">
+              <a class="button" href="#contact">Request a quote</a>
+              <a class="text-link" href="#services">Explore services <span aria-hidden="true">↓</span></a>
+            </div>
+            <div class="trust-row" aria-label="FreshRide benefits">
+              <span>At your location</span>
+              <span>Careful finish</span>
+              <span>Easy booking</span>
+            </div>
+          </div>
+          <div class="hero-visual hero-entrance" aria-label="FreshRide icon">
+            <img src="assets/icon/freshride-logo.png" alt="FreshRide icon">
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section">
+        <div class="container">
+          <div class="section-heading reveal-on-scroll">
+            <p class="eyebrow">Services</p>
+            <h2>Choose the reset your car needs.</h2>
+            <p>Clear packages, careful work, and no surprise add-ons.</p>
+          </div>
+          <div class="service-grid">
+            <article class="service-card reveal-on-scroll">
+              <span class="service-number">01</span>
+              <h3>Interior refresh</h3>
+              <p>Vacuuming, wipe-down, glass cleaning, and detail work for the spaces you use every day.</p>
+              <strong>From $35</strong>
+            </article>
+            <article class="service-card featured reveal-on-scroll">
+              <span class="service-number">02</span>
+              <h3>Full detail</h3>
+              <p>A complete inside-and-out clean for when your car needs more than a quick wash.</p>
+              <strong>From $75</strong>
+            </article>
+            <article class="service-card reveal-on-scroll">
+              <span class="service-number">03</span>
+              <h3>Exterior shine</h3>
+              <p>Hand wash, wheels, tires, and a polished finish that makes the drive feel new again.</p>
+              <strong>From $45</strong>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="why-us" class="section dark-section">
+        <div class="container benefit-grid">
+          <div class="reveal-on-scroll">
+            <p class="eyebrow">Why FreshRide</p>
+            <h2>Good service should fit into your life.</h2>
+          </div>
+          <div class="benefit-list">
+            <div class="reveal-on-scroll"><span>01</span><p><strong>We come to you.</strong> Book at home, at work, or wherever your car is parked.</p></div>
+            <div class="reveal-on-scroll"><span>02</span><p><strong>We respect your time.</strong> You get a clear arrival window and straightforward updates.</p></div>
+            <div class="reveal-on-scroll"><span>03</span><p><strong>We notice the details.</strong> Every service ends with a walk-around before we hand back the keys.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section proof-section">
+        <div class="container proof-grid">
+          <div class="proof-visual reveal-on-scroll"><span>Before</span><strong>Make room<br />for the good days.</strong></div>
+          <div class="quote-block reveal-on-scroll">
+            <p class="eyebrow">Customer note</p>
+            <blockquote>“I booked during my workday and came back to a car that felt brand new.”</blockquote>
+            <cite>Sample customer, local service area</cite>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact-section">
+        <div class="container contact-grid">
+          <div class="reveal-on-scroll">
+            <p class="eyebrow">Get your quote</p>
+            <h2>Tell us what your car needs.</h2>
+            <p>Share a few details and we will recommend the right service and a convenient time.</p>
+          </div>
+          <form class="quote-form reveal-on-scroll">
+            <label>Name<input type="text" name="name" placeholder="Your name" required /></label>
+            <label>Phone or email<input type="text" name="contact" placeholder="How should we reach you?" required /></label>
+            <label>Service<select name="service"><option>Interior refresh</option><option>Full detail</option><option>Exterior shine</option></select></label>
+            <label>Message<textarea name="message" rows="4" placeholder="Tell us about your car and preferred day"></textarea></label>
+            <button class="button" type="submit">Send quote request</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a class="brand" href="#top">Fresh<span>Ride</span></a>
+        <p>Mobile detailing for busy days and better drives.</p>
+        <a href="../../../index.html">Back to portfolio</a>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
