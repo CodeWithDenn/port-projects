@@ -382,6 +382,10 @@ footer {
   color: var(--color-text);
 }
 
+.pin-inputs { display: flex; justify-content: center; gap: 0.5rem; }
+.pin-digit { width: 42px !important; min-height: 52px !important; padding: 0.5rem !important; border: 2px solid var(--color-border) !important; border-radius: 8px !important; background: #ffffff; text-align: center; font-size: 1.35rem; font-weight: 700; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease; }
+.pin-digit:focus { border-color: var(--color-accent) !important; box-shadow: 0 0 0 3px rgba(107, 63, 160, 0.15); transform: translateY(-2px); }
+
 .lock-form button {
   border: 0;
   background: var(--color-accent-dark);

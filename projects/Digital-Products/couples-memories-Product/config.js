@@ -9,7 +9,7 @@ const CONFIG = {
     // Lock screen — change this six-digit code to any date or number they both know.
     lock: {
       storageKey: "couples-memories-template-unlocked",
-      code: "010126",
+      code: "111111",
     },
 
   // Shown in the header

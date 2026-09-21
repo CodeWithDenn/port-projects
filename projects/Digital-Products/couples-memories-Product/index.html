@@ -9,16 +9,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="shortcut icon" href="assets/icon/couple-memories-icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/icon/favicon.png" type="image/x-icon">
   </head>
   <body class="lock-page">
     <main class="lock-panel">
       <p class="lock-kicker">A little something for us</p>
       <h1>Our Memories</h1>
       <p class="lock-prompt">Enter our special date to unlock the story.</p>
-      <form id="lock-form" class="lock-form">
-        <label for="lock-code">Special date - 010126</label>
-          <input id="lock-code" name="lock-code" type="password" inputmode="numeric" autocomplete="off" placeholder="MMDDYY" pattern="\d{6}" maxlength="6" required />
+      <form id="lock-form" class="lock-form" autocomplete="off">
+        <label for="lock-digit-1">Special date</label>
+        <div class="pin-inputs" id="pin-container">
+          <input id="lock-digit-1" name="lock-digit-1" type="password" inputmode="numeric" maxlength="1" class="pin-digit" autofocus required aria-label="PIN digit 1" />
+          <input id="lock-digit-2" name="lock-digit-2" type="password" inputmode="numeric" maxlength="1" class="pin-digit" required aria-label="PIN digit 2" />
+          <input id="lock-digit-3" name="lock-digit-3" type="password" inputmode="numeric" maxlength="1" class="pin-digit" required aria-label="PIN digit 3" />
+          <input id="lock-digit-4" name="lock-digit-4" type="password" inputmode="numeric" maxlength="1" class="pin-digit" required aria-label="PIN digit 4" />
+          <input id="lock-digit-5" name="lock-digit-5" type="password" inputmode="numeric" maxlength="1" class="pin-digit" required aria-label="PIN digit 5" />
+          <input id="lock-digit-6" name="lock-digit-6" type="password" inputmode="numeric" maxlength="1" class="pin-digit" required aria-label="PIN digit 6" />
+        </div>
         <button type="submit">Unlock</button>
         <p id="lock-error" class="lock-error" role="alert" hidden></p>
       </form>
