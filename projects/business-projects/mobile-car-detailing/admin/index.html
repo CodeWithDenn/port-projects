@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FreshRide Mobile Detailing admin dashboard." />
+    <title>FreshRide Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="../assets/icon/freshride-icon.png" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../supabase-config.js"></script>
+  </head>
+  <body>
+    <section class="auth-panel" id="auth-panel">
+      <div class="auth-card">
+        <div class="auth-card-header">
+          <p class="eyebrow">FreshRide Admin</p>
+          <a class="auth-public-link" href="../index.html">View public site</a>
+        </div>
+        <h1>Sign in to your workspace.</h1>
+        <p class="muted">Use the admin account created in Supabase Authentication.</p>
+        <form id="login-form">
+          <label>
+            Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            Password
+            <input type="password" name="password" autocomplete="current-password" required />
+          </label>
+          <button class="button" type="submit">Sign in</button>
+          <p class="form-status" id="login-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <div class="app-shell" id="app-shell" hidden>
+      <aside class="sidebar">
+        <a class="brand" href="../index.html">Fresh<span>Ride</span></a>
+        <p class="sidebar-label">Workspace</p>
+        <nav aria-label="Dashboard navigation">
+          <a class="nav-item active" href="#dashboard">Overview</a>
+          <a class="nav-item" href="#requests">Quote requests</a>
+          <a class="nav-item" href="#schedule">Schedule</a>
+        </nav>
+        <div class="sidebar-footer">
+          <span class="status-dot"></span>
+          <span>Authenticated workspace</span>
+        </div>
+      </aside>
+
+      <main class="main-content" id="dashboard">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">FreshRide Admin</p>
+            <h1>Good morning, owner.</h1>
+          </div>
+          <div class="topbar-actions">
+            <button class="button button-light" type="button" id="logout-button">Sign out</button>
+          </div>
+        </header>
+
+        <section class="intro-row" aria-labelledby="dashboard-title">
+          <div>
+            <h2 id="dashboard-title">Today at a glance</h2>
+            <p class="muted">Keep quote requests moving from first contact to completed service.</p>
+          </div>
+          <button class="button" type="button" id="refresh-button">Refresh requests</button>
+        </section>
+
+        <section class="stats-grid" aria-label="Request summary">
+          <article class="stat-card"><span>New requests</span><strong id="new-count">0</strong><small>Needs a first reply</small></article>
+          <article class="stat-card"><span>Pending quotes</span><strong id="pending-count">0</strong><small>Waiting for customer</small></article>
+          <article class="stat-card"><span>Scheduled</span><strong id="scheduled-count">0</strong><small>Upcoming services</small></article>
+          <article class="stat-card"><span>Completed</span><strong id="completed-count">0</strong><small>This month</small></article>
+        </section>
+
+        <section class="content-panel" id="requests" aria-labelledby="requests-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Customer pipeline</p>
+              <h2 id="requests-title">Quote requests</h2>
+            </div>
+            <label class="search-field">
+              <span class="sr-only">Search requests</span>
+              <input id="search-input" type="search" placeholder="Search requests" />
+            </label>
+          </div>
+          <div class="filter-row" aria-label="Filter requests">
+            <button class="filter-button active" type="button" data-filter="all">All</button>
+            <button class="filter-button" type="button" data-filter="new">New</button>
+            <button class="filter-button" type="button" data-filter="pending">Pending</button>
+            <button class="filter-button" type="button" data-filter="scheduled">Scheduled</button>
+            <button class="filter-button" type="button" data-filter="completed">Completed</button>
+            <button class="filter-button" type="button" data-filter="cancelled">Cancelled</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Customer</th><th>Service</th><th>Preferred date</th><th>Status</th><th><span class="sr-only">Actions</span></th></tr>
+              </thead>
+              <tbody id="request-list"></tbody>
+            </table>
+          </div>
+          <p class="empty-state" id="empty-state" hidden>No requests match this filter.</p>
+          <p class="request-status" id="request-status" aria-live="polite">Loading requests...</p>
+        </section>
+
+        <section class="content-panel schedule-panel" id="schedule" aria-labelledby="schedule-title">
+          <div class="panel-heading">
+            <div><p class="eyebrow">Next up</p><h2 id="schedule-title">Upcoming schedule</h2></div>
+            <span class="date-label">September 2026</span>
+          </div>
+          <div class="schedule-list" id="schedule-list"></div>
+          <p class="empty-state" id="schedule-empty" hidden>No upcoming scheduled services.</p>
+        </section>
+      </main>
+    </div>
+    <div class="request-modal" id="request-modal" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" type="button" aria-label="Close request details" data-close-modal>&times;</button>
+        <p class="eyebrow">Request details</p>
+        <h2 id="modal-title"></h2>
+        <div class="detail-grid">
+          <div><span>Contact</span><strong id="modal-contact"></strong></div>
+          <div><span>Service</span><strong id="modal-service"></strong></div>
+          <div><span>Preferred date</span><strong id="modal-date"></strong></div>
+          <div><span>Status</span><strong id="modal-status"></strong></div>
+        </div>
+        <div class="message-box">
+          <span>Customer message</span>
+          <p id="modal-message"></p>
+        </div>
+      </section>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

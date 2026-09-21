@@ -123,8 +123,10 @@
             <label>Name<input type="text" name="name" placeholder="Your name" required /></label>
             <label>Phone or email<input type="text" name="contact" placeholder="How should we reach you?" required /></label>
             <label>Service<select name="service"><option>Interior refresh</option><option>Full detail</option><option>Exterior shine</option></select></label>
+            <label>Preferred date<input type="date" name="preferred_date" /></label>
             <label>Message<textarea name="message" rows="4" placeholder="Tell us about your car and preferred day"></textarea></label>
             <button class="button" type="submit">Send quote request</button>
+            <p class="form-status" aria-live="polite"></p>
           </form>
         </div>
       </section>
@@ -137,6 +139,8 @@
         <a href="../../../index.html">Back to portfolio</a>
       </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
