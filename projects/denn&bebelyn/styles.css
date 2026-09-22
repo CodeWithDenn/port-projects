@@ -436,12 +436,27 @@ footer {
 }
 
 /* --- Small screens --- */
-@media (max-width: 480px) {
+@media (max-width: 700px) {
   .hero {
     padding: 2rem 1rem;
   }
 
   main {
     padding: 0 1rem;
+  }
+
+  .timeline-item,
+  .timeline-item:nth-child(even) {
+    flex-direction: column;
+  }
+
+  .timeline-photo {
+    flex: none;
+    width: 100%;
+  }
+
+  .timeline-content p {
+    font-size: 1rem;
+    line-height: 1.6;
   }
 }
