@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A neighborhood donut shop with fresh daily flavors and easy pickup." />
+    <title>Daybreak Donuts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- <a href="#main-content">Skip to content</a> -->
+
+    <header>
+      <nav aria-label="Main navigation">
+        <a href="#top">Daybreak Donuts</a>
+        <a href="#menu">Menu</a>
+        <a href="#our-shop">Our shop</a>
+        <a href="#visit">Visit</a>
+        <a href="#pickup">Pickup</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section id="top" aria-labelledby="hero-title">
+        <p>Small-batch donuts, big-morning energy.</p>
+        <h1 id="hero-title">A little something good for your morning.</h1>
+        <p>Hand-cut, slow-proofed, and glazed fresh each morning in the heart of Portland.</p>
+        <a href="#menu">See today's menu</a>
+        <a href="#pickup">Plan a pickup</a>
+        <img class="hero-image" src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=1200&q=85" alt="Stack of chocolate-glazed donuts covered with colorful sprinkles" />
+      </section>
+
+      <section id="menu" aria-labelledby="menu-title">
+        <p>Made fresh today</p>
+        <h2 id="menu-title">Today's donuts</h2>
+        <p>Our small-batch flavors are available until they're gone. Come early for the full selection.</p>
+        <div>
+          <article>
+            <h3>Brown Butter Old-Fashioned</h3>
+            <p>Crisp edges, a tender center, and a warm vanilla glaze.</p>
+            <p>$3.25</p>
+          </article>
+          <article>
+            <h3>Maple Sea Salt</h3>
+            <p>Fluffy brioche dipped in local maple glaze with a pinch of flaky salt.</p>
+            <p>$3.75</p>
+          </article>
+          <article>
+            <h3>Raspberry Jam Bismark</h3>
+            <p>Filled with tart raspberry jam and finished with a dusting of sugar.</p>
+            <p>$4.00</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="our-shop" aria-labelledby="shop-title">
+        <p>Our little corner of the neighborhood</p>
+        <h2 id="shop-title">A good day starts here.</h2>
+        <p>Daybreak began with a simple idea: make the kind of donut worth getting out of bed for. We mix and shape each batch by hand, let the dough rise slowly overnight, and fry everything fresh before the doors open. Good ingredients, a little patience, and a warm welcome are our recipe.</p>
+      </section>
+
+      <section id="pickup" aria-labelledby="pickup-title">
+        <p>Save a box</p>
+        <h2 id="pickup-title">Plan a pickup</h2>
+        <p>Tell us what you'd like and when you'll stop by. We'll email to confirm your order and pickup time.</p>
+        <form>
+          <label for="customer-name">Name</label>
+          <input id="customer-name" name="customer-name" autocomplete="name" />
+
+          <label for="customer-email">Email</label>
+          <input id="customer-email" name="customer-email" type="email" autocomplete="email" />
+
+          <label for="pickup-details">What would you like?</label>
+          <textarea id="pickup-details" name="pickup-details" rows="4"></textarea>
+
+          <button type="submit">Request pickup</button>
+        </form>
+      </section>
+
+      <section id="visit" aria-labelledby="visit-title">
+        <p>Come say hello</p>
+        <h2 id="visit-title">Find the shop</h2>
+        <address>
+          214 Maple Street<br />
+          Tagbilaran City, Bohol 6300
+        </address>
+        <h3>Hours</h3>
+        <ul>
+          <li>Tuesday–Friday: 6:30 a.m.–1:00 p.m.</li>
+          <li>Saturday–Sunday: 7:00 a.m.–2:00 p.m.</li>
+          <li>Monday: Closed</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <a href="#top">Daybreak Donuts</a>
+      <p>Made fresh in Bohol, shared with you.</p>
+      <a href="../../../index.html">Back to portfolio</a>
+    </footer>
+  </body>
+</html>

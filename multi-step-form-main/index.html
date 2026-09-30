@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap"
+    />
+
+    <title>Frontend Mentor | Multi-step form</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      :root {
+        --font-family: "Ubuntu", sans-serif;
+      }
+
+      body {
+        font-family: var(--font-family);
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: hsl(218, 100%, 97%); /* Grey 500 */
+      }
+
+      .attribution {
+        font-size: 0.6875rem;
+        text-align: center;
+        position: fixed;
+        bottom: 0.5rem;
+        left: 0;
+        width: 100%;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      .form-container {
+        display: flex;
+        gap: 2rem;
+        background: white;
+        box-shadow: 0px 10px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 20px;
+      }
+      .sidebar {
+        background: url(assets/images/bg-sidebar-desktop.svg) no-repeat center
+          center;
+        background-size: cover;
+        width: 28vh;
+        height: 60vh;
+        border-radius: 20px;
+        padding: 1rem;
+      }
+      .sidebar-inner {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+      }
+      .step-indicator {
+        width: 2rem;
+        height: 2rem;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        border: 1px solid hsl(0, 0%, 100%);
+        color: hsl(0, 0%, 100%);
+        display: grid;
+        place-items: center;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .step-indicator[aria-current="step"] {
+        background: hsl(224, 100%, 85%); /* light blue accent */
+        color: hsl(213, 96%, 18%); /* dark navy text */
+        border-color: transparent;
+      }
+      .step-indicator p {
+        margin: 0;
+      }
+      .step-info {
+        display: flex;
+        align-items: center;
+      }
+      .step-info-inner {
+        margin-left: 1rem;
+        height: 100%;
+      }
+      .step-info-inner p {
+        margin: 0;
+        font-weight: bold;
+        color: white;
+      }
+      .step-info-inner p:first-child {
+        font-size: 0.75rem;
+        color: hsl(231, 11%, 63%); /* Grey 500 */
+        letter-spacing: 1px;
+      }
+      .main-content {
+        background: white;
+        margin: 0 2rem;
+        padding: 1.5rem;
+        box-sizing: border-box;
+        border-radius: 20px;
+        flex: 1;
+        width: 50vh;
+        height: 60vh;
+      }
+      .main-content form {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+      .main-content h1 {
+        color: hsl(213, 96%, 18%);
+        margin: 0;
+      }
+      .main-content p {
+        color: hsl(231, 11%, 63%); /* Grey 500 */
+        font-size: 0.875rem; /* 14px */
+        margin-top: 0.5rem;
+      }
+      .main-content label {
+        color: hsl(213, 96%, 18%);
+        font-size: 0.875rem; /* 14px */
+        font-weight: bold;
+      }
+      .field-label-row {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+      }
+      .error-message {
+        color: hsl(0, 100%, 63%);
+        font-size: 0.75rem;
+        font-weight: bold;
+        display: none;
+      }
+      .main-content input {
+        width: 100%;
+        padding: 1rem;
+        margin-top: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+      .main-content input.invalid {
+        border-color: hsl(0, 100%, 63%);
+      }
+      .main-content input.invalid + .error-message,
+      .field-label-row .error-message.visible {
+        display: inline;
+      }
+      .main-content button {
+        padding: 1rem 2rem;
+        background-color: hsl(213, 96%, 18%);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .main-content button:hover {
+        background-color: hsl(224, 100%, 75%);
+        color: hsl(213, 96%, 18%);
+      }
+      .step-actions {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .step-actions .btn-back {
+        margin-right: auto;
+        background: none;
+        color: hsl(231, 11%, 63%);
+      }
+      .step-actions .btn-back:hover {
+        color: hsl(213, 96%, 18%);
+      }
+
+      /*  */
+
+      .step-2 {
+        /* display: none; */
+      }
+      .plan-options {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .plan-option {
+        position: relative;
+      }
+
+      .plan-option input {
+        position: absolute;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+      }
+
+      .plan-option label {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 1rem;
+        cursor: pointer;
+      }
+
+      .plan-option input:checked + label {
+        border-color: hsl(213, 96%, 18%);
+        background: hsl(218, 100%, 97%);
+      }
+
+      .plan-option .plan-icon {
+        margin: 0 2.5rem 2.5rem 0;
+      }
+      .plan-option p {
+        margin: 0;
+      }
+      .billing-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      /*  */
+
+      .addon-options {
+        display: flex;
+        flex-direction: column;
+      }
+      .addon-option {
+        margin-bottom: 1rem;
+      }
+      .addon-option input {
+        position: absolute;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+      }
+
+      .addon-option label {
+        display: flex;
+        flex-direction: row;
+        align-items: left;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 1.5rem;
+        cursor: pointer;
+      }
+      .addon-option h3 {
+        margin: 0;
+        margin-bottom: 0.5rem;
+      }
+      .addon-option p {
+        margin: 0;
+      }
+
+      .addon-option input:checked + label {
+        border-color: hsl(213, 96%, 18%);
+        background: hsl(218, 100%, 97%);
+      }
+      .addon-price {
+        color: hsl(243, 100%, 62%);
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
+
+      /*  */
+
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        color: hsl(231, 11%, 63%);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar start -->
+    <section class="form-container">
+      <section class="sidebar">
+        <div class="container sidebar-inner">
+          <div class="step-indicator" aria-current="step">
+            <p>1</p>
+          </div>
+          <div class="step-info">
+            <div class="step-info-inner">
+              <p>STEP 1</p>
+              <p>YOUR INFO</p>
+            </div>
+          </div>
+        </div>
+        <div class="container sidebar-inner">
+          <div class="step-indicator">
+            <p>2</p>
+          </div>
+          <div class="step-info">
+            <div class="step-info-inner">
+              <p>STEP 2</p>
+              <p>SELECT PLAN</p>
+            </div>
+          </div>
+        </div>
+        <div class="container sidebar-inner">
+          <div class="step-indicator">
+            <p>3</p>
+          </div>
+          <div class="step-info">
+            <div class="step-info-inner">
+              <p>STEP 3</p>
+              <p>ADD-ONS</p>
+            </div>
+          </div>
+        </div>
+        <div class="container sidebar-inner">
+          <div class="step-indicator">
+            <p>4</p>
+          </div>
+          <div class="step-info">
+            <div class="step-info-inner">
+              <p>STEP 4</p>
+              <p>SUMMARY</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="main-content step-1">
+        <form novalidate>
+          <h1>Personal info</h1>
+          <p>Please provide your name, email address, and phone number.</p>
+
+          <div class="field-label-row">
+            <label for="name">Name</label>
+            <span class="error-message" id="name-error"
+              >This field is required</span
+            >
+          </div>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="e.g. Stephen King"
+            required
+            aria-describedby="name-error"
+            aria-invalid="false"
+          />
+
+          <div class="field-label-row">
+            <label for="email">Email Address</label>
+            <span class="error-message" id="email-error"
+              >This field is required</span
+            >
+          </div>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="e.g. stephenking@lorem.com"
+            required
+            aria-describedby="email-error"
+            aria-invalid="false"
+          />
+
+          <div class="field-label-row">
+            <label for="phone">Phone Number</label>
+            <span class="error-message" id="phone-error"
+              >This field is required</span
+            >
+          </div>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="e.g. +1 234 567 890"
+            required
+            aria-describedby="phone-error"
+            aria-invalid="false"
+          />
+
+          <div class="step-actions">
+            <button type="submit">Next Step</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="main-content step-2">
+        <form novalidate>
+          <h1>Select your plan</h1>
+          <p>You have the option of monthly or yearly billing.</p>
+
+          <div class="plan-options">
+            <div class="plan-option">
+              <input
+                type="radio"
+                id="arcade"
+                name="plan"
+                value="arcade"
+                required
+              />
+              <label for="arcade">
+                <div class="plan-icon">
+                  <img src="assets/images/icon-arcade.svg" alt="Arcade icon" />
+                </div>
+                <p>Arcade</p>
+                <p>$9/mo</p>
+              </label>
+            </div>
+            <div class="plan-option">
+              <input
+                type="radio"
+                id="advanced"
+                name="plan"
+                value="advanced"
+                required
+              />
+              <label for="advanced">
+                <div class="plan-icon">
+                  <img
+                    src="assets/images/icon-advanced.svg"
+                    alt="Advanced icon"
+                  />
+                </div>
+                <p>Advanced</p>
+                <p>$12/mo</p>
+              </label>
+            </div>
+            <div class="plan-option">
+              <input type="radio" id="pro" name="plan" value="pro" required />
+              <label for="pro">
+                <div class="plan-icon">
+                  <img src="assets/images/icon-pro.svg" alt="Pro icon" />
+                </div>
+                <p>Pro</p>
+                <p>$15/mo</p>
+              </label>
+            </div>
+          </div>
+          <div class="billing-toggle">
+            <span>Monthly</span>
+            <label class="switch">
+              <input type="checkbox" id="billing-toggle" />
+              <span class="slider round"></span>
+            </label>
+            <span>Yearly</span>
+          </div>
+          <div class="step-actions">
+            <button type="button" class="btn-back">Go Back</button>
+            <button type="submit">Next Step</button>
+          </div>
+        </form>
+      </div>
+
+      <!--  -->
+
+      <div class="main-content step-3">
+        <form novalidate>
+          <h1>Pick add-ons</h1>
+          <p>Add-ons help enhance your gaming experience.</p>
+
+          <div class="addons-options">
+            <div class="addon-option">
+              <input
+                type="checkbox"
+                id="online-service"
+                name="addon"
+                value="online-service"
+              />
+              <label for="online-service">
+                <div>
+                  <h3>Online service</h3>
+                  <p>Access to multiplayer games</p>
+                </div>
+                <div class="addon-price">+$1/mo</div>
+              </label>
+            </div>
+
+            <div class="addon-option">
+              <input
+                type="checkbox"
+                id="larger-storage"
+                name="addon"
+                value="larger-storage"
+              />
+              <label for="larger-storage">
+                <div>
+                  <h3>Larger storage</h3>
+                  <p>Extra 1TB of cloud save</p>
+                </div>
+                <div class="addon-price">+$2/mo</div>
+              </label>
+            </div>
+
+            <div class="addon-option">
+              <input
+                type="checkbox"
+                id="customizable-profile"
+                name="addon"
+                value="customizable-profile"
+              />
+              <label for="customizable-profile">
+                <div>
+                  <h3>Customizable Profile</h3>
+                  <p>Custom theme on your profile</p>
+                </div>
+                <div class="addon-price">+$2/mo</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn-back">Go Back</button>
+            <button type="submit">Next Step</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 3 end -->
+
+      <div class="main-content step-4">
+        <form novalidate>
+          <h1>Finishing up</h1>
+          <p>Double-check everything looks OK before confirming.</p>
+
+          <div class="summary">
+            <!-- Dynamically add subscription and add-on selections here -->
+          </div>
+
+          <div class="step-actions">
+            <button type="button" class="btn-back">Go Back</button>
+            <button type="submit">Next Step</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Step 4 start -->
+
+    <!-- Finishing up Double-check everything looks OK before confirming. -->
+
+    <!-- Dynamically add subscription and add-on selections here -->
+
+    <!-- Total (per month/year) Go Back Confirm -->
+
+    <!-- Step 4 end -->
+
+    <!-- Step 5 start -->
+
+    <!-- Thank you! Thanks for confirming your subscription! We hope you have fun
+    using our platform. If you ever need support, please feel free to email us
+    at support@loremgaming.com. -->
+
+    <!-- Step 5 end -->
+
+    <footer class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
+      Coded by <a href="#">Your Name Here</a>.
+    </footer>
+
+    <script>
+      const step1Form = document.querySelector(".main-content form");
+
+      const PLAN_PRICES = { arcade: 9, advanced: 12, pro: 15 };
+      const ADDON_LABELS = {
+        "online-service": "Online service",
+        "larger-storage": "Larger storage",
+        "customizable-profile": "Customizable Profile",
+      };
+
+      function renderSummary() {
+        const summary = document.querySelector(".summary");
+        summary.innerHTML = "";
+
+        const selectedPlan = document.querySelector('input[name="plan"]:checked');
+        if (selectedPlan) {
+          summary.insertAdjacentHTML(
+            "beforeend",
+            `<div class="summary-item">
+              <span>${selectedPlan.value} (Monthly)</span>
+              <span>$${PLAN_PRICES[selectedPlan.value]}/mo</span>
+            </div>`
+          );
+        }
+
+        const selectedAddons = document.querySelectorAll('input[name="addon"]:checked');
+        selectedAddons.forEach((addon) => {
+          summary.insertAdjacentHTML(
+            "beforeend",
+            `<div class="summary-item">
+              <span>${ADDON_LABELS[addon.value]}</span>
+              <span>${addon.closest(".addon-option").querySelector(".addon-price").textContent}</span>
+            </div>`
+          );
+        });
+      }
+
+      let currentStep = 1;
+
+      function showStep(stepNumber) {
+        document.querySelectorAll(".main-content").forEach((el) => {
+          el.style.display = "none";
+        });
+        document.querySelector(`.step-${stepNumber}`).style.display = "block";
+        currentStep = stepNumber;
+
+        if (stepNumber === 4) renderSummary();
+
+        document.querySelectorAll(".sidebar-inner").forEach((el, index) => {
+          const indicator = el.querySelector(".step-indicator");
+          const isActive = index + 1 === stepNumber;
+          indicator.toggleAttribute("aria-current", isActive);
+          if (isActive) indicator.setAttribute("aria-current", "step");
+        });
+      }
+
+      document.querySelectorAll(".main-content form").forEach((form) => {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          const inputs = form.querySelectorAll("input[required]");
+          let formIsValid = true;
+
+          inputs.forEach((input) => {
+            const isValid = input.validity.valid;
+            const errorMessage = document.getElementById(`${input.id}-error`);
+
+            input.classList.toggle("invalid", !isValid);
+            if (errorMessage) errorMessage.classList.toggle("visible", !isValid);
+            input.setAttribute("aria-invalid", String(!isValid));
+
+            if (!isValid) formIsValid = false;
+          });
+
+          if (formIsValid) {
+            showStep(currentStep + 1);
+          }
+        });
+      });
+
+      document.querySelectorAll(".btn-back").forEach((button) => {
+        button.addEventListener("click", () => {
+          showStep(currentStep - 1);
+        });
+      });
+
+      showStep(1);
+    </script>
+  </body>
+</html>
