@@ -52,14 +52,13 @@
               <span>Dine in on site</span>
             </div>
           </div>
-          <div class="hero-visual" aria-label="Illustration of an RC vehicle climbing a trail">
-            <div class="trail-map">
-              <span class="map-label map-label-start">START</span>
-              <span class="map-label map-label-finish">FINISH</span>
-              <div class="trail-line"></div>
-              <div class="rc-marker">RC</div>
-            </div>
-            <p>Uneven ground. Big smiles.</p>
+          <div class="hero-visual">
+            <img
+              class="hero-logo"
+              src="assets/images/rc-tambayan-logo.png"
+              alt="RC Tambayan logo"
+            />
+            <!-- <p>Uneven ground. Big smiles.</p> -->
           </div>
         </div>
       </section>
@@ -178,7 +177,7 @@
           <div>
             <p class="eyebrow">Plan your visit</p>
             <h2>Tell us when your crew is coming.</h2>
-            <p class="section-copy">This demo form confirms the request on this page. Replace the form handler with your Facebook, Messenger, email, or booking service when your business details are ready.</p>
+            <p class="section-copy">Fill out the form, copy your request, then paste it in a message to our Facebook page.</p>
             <div id="visit" class="visit-details">
               <p><strong>Location</strong><br />Add your exact address here</p>
               <p><strong>Open</strong><br />Friday to Sunday, 10:00 AM - 9:00 PM</p>
@@ -207,8 +206,12 @@
             <label for="visit-notes">What are you planning?
               <textarea id="visit-notes" name="notes" rows="4" placeholder="Trail session, dine-in, birthday, or anything we should know"></textarea>
             </label>
-            <button class="button" type="submit">Request a visit</button>
+            <button class="button" type="submit">Copy request</button>
             <p class="form-status" role="status" aria-live="polite"></p>
+            <label for="request-preview" class="request-preview" hidden>Copy this message manually if needed
+              <textarea id="request-preview" rows="7" readonly></textarea>
+            </label>
+            <a class="fb-link" href="https://www.facebook.com/profile.php?id=61594951141449" target="_blank" rel="noopener" hidden>Open our Facebook page</a>
           </form>
         </div>
       </section>
@@ -216,7 +219,7 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <a class="brand" href="#top">RC<span>Tambayan</span></a>
+        <a class="brand" href="#top">RC <span>Tambayan</span></a>
         <p>Drive, explore, stay awhile.</p>
         <a href="../../../index.html">Back to portfolio</a>
       </div>
