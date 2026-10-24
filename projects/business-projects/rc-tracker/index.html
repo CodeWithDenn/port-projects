@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Track RC toy rentals by unit, set a rental timer, and see when each rental is due."
+    />
+    <title>RC Toy Rental Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="../../../index.html">RC <span>Rental Tracker</span></a>
+        <a class="back-link" href="../../../index.html">Back to portfolio</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="page-intro" aria-labelledby="page-title">
+        <p class="eyebrow">Rental desk</p>
+        <h1 id="page-title">Keep every run on time.</h1>
+        <p>Select a toy, add the renter and rental minutes, then watch the countdown.</p>
+      </section>
+
+      <section class="overview-grid" aria-label="Rental overview">
+        <article class="summary-card">
+          <span class="summary-label">Toy categories</span>
+          <strong id="category-count">0</strong>
+        </article>
+        <article class="summary-card">
+          <span class="summary-label">Individual units</span>
+          <strong id="unit-count">0</strong>
+        </article>
+        <article class="summary-card summary-card-accent">
+          <span class="summary-label">Active rentals</span>
+          <strong id="active-rental-count">0</strong>
+        </article>
+      </section>
+
+      <section class="panel" id="overview" aria-labelledby="units-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Your fleet</p>
+            <h2 id="units-heading">Choose a unit</h2>
+          </div>
+          <p class="section-hint">Select a toy to see its status and start a rental.</p>
+        </div>
+
+        <div class="unit-grid">
+          <button class="unit-card" type="button" data-unit-id="mn82s-supertourer1" data-unit-name="mn82s-supertourer1" data-category="1/10" aria-pressed="false">
+            <span class="unit-category">1/10</span>
+            <span class="unit-name">MN82s Supertourer (1)</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="mn82s-supertourer2" data-unit-name="mn82s-supertourer2" data-category="1/10" aria-pressed="false">
+            <span class="unit-category">1/10</span>
+            <span class="unit-name">MN82s Supertourer (2)</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="mn128" data-unit-name="mn128" data-category="1/10" aria-pressed="false">
+            <span class="unit-category">1/10</span>
+            <span class="unit-name">MN128</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="hurtleh1" data-unit-name="hurtle-h1" data-category="1/10" aria-pressed="false">
+            <span class="unit-category">1/10</span>
+            <span class="unit-name">Hurtle H1</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="mn300" data-unit-name="mn300" data-category="1/10" aria-pressed="false">
+            <span class="unit-category">1/10</span>
+            <span class="unit-name">MN300</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="climbing-beast-1" data-unit-name="climbing-beast-1" data-category="1/12" aria-pressed="false">
+            <span class="unit-category">1/12</span>
+            <span class="unit-name">Climbing Beast (1)</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="climbing-beast-2" data-unit-name="climbing-beast-2" data-category="1/12" aria-pressed="false">
+            <span class="unit-category">1/12</span>
+            <span class="unit-name">Climbing Beast (2)</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="excavator" data-unit-name="excavator" data-category="1/12" aria-pressed="false">
+            <span class="unit-category">1/12</span>
+            <span class="unit-name">Excavator</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="truck-claw" data-unit-name="truck-claw" data-category="1/12" aria-pressed="false">
+            <span class="unit-category">1/12</span>
+            <span class="unit-name">Truck Claw</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+        </div>
+      </section>
+
+      <div class="content-grid">
+        <section class="panel rental-panel" id="add-rental" aria-labelledby="add-rental-heading">
+          <p class="eyebrow">New rental</p>
+          <h2 id="add-rental-heading">Start a timer</h2>
+          <p class="selected-unit" id="selected-unit-label">Select an available unit to get started.</p>
+          <p class="rental-hint">A renter can take multiple units. Choose each available unit and start its timer using the same renter name.</p>
+
+          <form id="rental-form">
+            <input id="selected-unit-id" name="unit" type="hidden" />
+            <div class="form-field">
+              <label for="renter-name">Renter name</label>
+              <input
+                id="renter-name"
+                name="renter"
+                type="text"
+                autocomplete="name"
+                placeholder="Enter renter's name"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label for="rental-duration">Rental time</label>
+              <div class="duration-input">
+                <select id="rental-duration" name="duration" required>
+                  <option value="15">15 minutes</option>
+                  <option value="30">30 minutes</option>
+                </select>
+                <span>minutes</span>
+              </div>
+              <small>Choose 15 or 30 minutes. A 30-second allowance is added before the timer expires.</small>
+            </div>
+            <button class="button button-primary" id="start-rental-button" type="submit" disabled>
+              Start rental
+            </button>
+            <p class="form-message" id="form-message" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="panel notification-panel" aria-labelledby="notifications-heading">
+          <p class="eyebrow">Updates</p>
+          <h2 id="notifications-heading">Notifications</h2>
+          <p class="selected-notification" id="rental-notification" role="status" aria-live="polite">
+            Select a unit to view its current status.
+          </p>
+          <ul class="notification-list" id="notification-list" aria-live="polite" aria-relevant="additions"></ul>
+        </section>
+      </div>
+
+      <section class="panel records-panel" id="rentals" aria-labelledby="records-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">On the track</p>
+            <h2 id="records-heading">Current rentals</h2>
+          </div>
+          <span class="live-indicator"><span aria-hidden="true"></span> Live countdown</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption class="visually-hidden">Current RC toy rentals and their remaining rental time</caption>
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Renter</th>
+                <th scope="col">Rental time</th>
+                <th scope="col">Time left</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody id="rental-rows">
+              <tr class="empty-row">
+                <td colspan="7">No rentals running. Choose a unit to start one.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>RC Toy Rental Tracker <span>·</span> Personal rental dashboard</p>
+      </div>
+    </footer>
+  </body>
+</html>
