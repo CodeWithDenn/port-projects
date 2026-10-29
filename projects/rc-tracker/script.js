@@ -3,13 +3,19 @@ const unitCards = [...document.querySelectorAll(".unit-card")];
 const rentalForm = document.querySelector("#rental-form");
 const renterInput = document.querySelector("#renter-name");
 const durationInput = document.querySelector("#rental-duration");
+const durationHint = document.querySelector("#rental-duration-hint");
+const durationUnit = document.querySelector("#rental-duration-unit");
 const selectedUnitIdInput = document.querySelector("#selected-unit-id");
 const selectedUnitLabel = document.querySelector("#selected-unit-label");
 const selectedNotification = document.querySelector("#rental-notification");
 const notificationList = document.querySelector("#notification-list");
 const rentalRows = document.querySelector("#rental-rows");
 const formMessage = document.querySelector("#form-message");
+const byoForm = document.querySelector("#byo-form");
+const byoRenterInput = document.querySelector("#byo-renter-name");
+const byoFormMessage = document.querySelector("#byo-form-message");
 const startRentalButton = document.querySelector("#start-rental-button");
+const startByoButton = document.querySelector("#start-byo-button");
 const activeRentalCount = document.querySelector("#active-rental-count");
 const unitCount = document.querySelector("#unit-count");
 const categoryCount = document.querySelector("#category-count");
@@ -21,6 +27,14 @@ let rentals = loadRentals();
 categoryCount.textContent = new Set(unitCards.map((card) => card.dataset.category)).size;
 unitCount.textContent = unitCards.length;
 
+durationInput.addEventListener("change", () => {
+  const isOpenTime = durationInput.value === "open";
+  durationUnit.hidden = isOpenTime;
+  durationHint.textContent = isOpenTime
+    ? "The timer counts up until you mark the unit returned."
+    : "Choose 15 or 30 minutes. A 30-second allowance is added before the timer expires.";
+});
+
 unitCards.forEach((card) => {
   card.addEventListener("click", () => selectUnit(card));
 });
@@ -31,7 +45,8 @@ rentalForm.addEventListener("submit", (event) => {
 
   const selectedCard = getSelectedCard();
   const renterName = renterInput.value.trim();
-  const duration = Number(durationInput.value);
+  const isOpenTime = durationInput.value === "open";
+  const duration = isOpenTime ? null : Number(durationInput.value);
 
   if (!selectedCard) {
     formMessage.textContent = "Choose an available unit before starting a rental.";
@@ -44,9 +59,9 @@ rentalForm.addEventListener("submit", (event) => {
     return;
   }
 
-  if (![15, 30].includes(duration)) {
+  if (!isOpenTime && ![15, 30].includes(duration)) {
     durationInput.focus();
-    formMessage.textContent = "Choose either 15 or 30 minutes.";
+    formMessage.textContent = "Choose 15 or 30 minutes, or select open time.";
     return;
   }
 
@@ -61,8 +76,10 @@ rentalForm.addEventListener("submit", (event) => {
     category: selectedCard.dataset.category,
     unitName: selectedCard.dataset.unitName,
     renterName,
+    rentalType: "fleet",
+    startedAt,
     durationMinutes: duration,
-    endsAt: startedAt + duration * 60 * 1000 + 30 * 1000,
+    endsAt: isOpenTime ? null : startedAt + duration * 60 * 1000 + 30 * 1000,
     notified: false,
   };
 
@@ -71,34 +88,85 @@ rentalForm.addEventListener("submit", (event) => {
     return;
   }
 
-  addNotification(
-    `${selectedCard.dataset.unitName} rented to ${renterName} for ${duration} minute${duration === 1 ? "" : "s"}.`,
-  );
+  addNotification(isOpenTime
+    ? `${selectedCard.dataset.unitName} rented to ${renterName} with an open timer.`
+    : `${selectedCard.dataset.unitName} rented to ${renterName} for ${duration} minute${duration === 1 ? "" : "s"}.`);
   selectUnit(selectedCard);
   formMessage.textContent = `Rental started for ${selectedCard.dataset.unitName}.`;
+});
+
+byoForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  byoFormMessage.textContent = "";
+
+  const renterName = byoRenterInput.value.trim();
+  if (!renterName) {
+    byoRenterInput.focus();
+    byoFormMessage.textContent = "Enter the renter's name.";
+    return;
+  }
+
+  const rentalId = createByoRentalId();
+  const startedAt = Date.now();
+  rentals[rentalId] = {
+    category: "BYO RC",
+    unitName: "Customer-owned RC",
+    renterName,
+    rentalType: "byo",
+    startedAt,
+    durationMinutes: null,
+    endsAt: null,
+    notified: false,
+  };
+
+  if (!saveRentals()) {
+    delete rentals[rentalId];
+    return;
+  }
+
+  addNotification(`BYO RC rental started for ${renterName}.`);
+  byoRenterInput.value = "";
+  byoFormMessage.textContent = `BYO RC timer started for ${renterName}.`;
+  render();
 });
 
 rentalRows.addEventListener("click", (event) => {
   const returnButton = event.target.closest("[data-return-unit]");
   if (!returnButton) return;
 
-  const unitId = returnButton.dataset.returnUnit;
-  const rental = rentals[unitId];
+  const rentalId = returnButton.dataset.returnUnit;
+  const rental = rentals[rentalId];
   if (!rental) return;
 
-  delete rentals[unitId];
+  const returnedAt = Date.now();
+  delete rentals[rentalId];
   if (!saveRentals()) {
-    rentals[unitId] = rental;
+    rentals[rentalId] = rental;
     return;
   }
 
-  addNotification(`${rental.unitName} has been marked as returned.`);
-  if (selectedUnitId === unitId) {
-    const card = unitCards.find((unitCard) => unitCard.dataset.unitId === unitId);
+  const elapsed = Math.max(0, returnedAt - rental.startedAt);
+  const isByo = rental.rentalType === "byo";
+  const returnMessage = isByo
+    ? `${rental.renterName}'s BYO RC was returned at ${formatClockTime(returnedAt)} after ${formatElapsed(elapsed)}. Charge: ${formatPrice(calculateByoCharge(elapsed))}.`
+    : rental.endsAt === null
+      ? `${rental.renterName}'s open-time rental of ${rental.unitName} ended at ${formatClockTime(returnedAt)} after ${formatElapsed(elapsed)}.`
+      : `${rental.unitName}, rented by ${rental.renterName}, has been marked as returned.`;
+  addNotification(returnMessage);
+  if (selectedUnitId === rentalId) {
+    const card = unitCards.find((unitCard) => unitCard.dataset.unitId === rentalId);
     if (card) selectUnit(card);
   }
   render();
 });
+
+function createByoRentalId() {
+  let rentalId;
+  do {
+    rentalId = `byo-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+  } while (rentals[rentalId]);
+  return rentalId;
+}
 
 function loadRentals() {
   try {
@@ -110,17 +178,43 @@ function loadRentals() {
       throw new Error("Saved rental data has an unexpected format.");
     }
 
-    for (const rental of Object.values(parsedRentals)) {
+    for (const [rentalId, rental] of Object.entries(parsedRentals)) {
       if (
         typeof rental.unitName !== "string" ||
         typeof rental.category !== "string" ||
-        typeof rental.renterName !== "string" ||
-        !Number.isInteger(rental.durationMinutes) ||
-        !Number.isFinite(rental.endsAt) ||
-        typeof rental.notified !== "boolean"
+        typeof rental.renterName !== "string"
       ) {
         throw new Error("Saved rental data is incomplete.");
       }
+
+      rental.rentalType = rental.rentalType ?? "fleet";
+      if (!["fleet", "byo"].includes(rental.rentalType)) {
+        throw new Error("Saved rental has an unsupported rental type.");
+      }
+
+      if (rental.rentalType === "byo" && !rentalId.startsWith("byo-")) {
+        throw new Error("Saved BYO rental has an invalid ID.");
+      }
+
+      if (rental.rentalType === "fleet" && !unitCards.some((card) => card.dataset.unitId === rentalId)) {
+        throw new Error("Saved fleet rental refers to an unknown unit.");
+      }
+
+      if (rental.startedAt === undefined && Number.isInteger(rental.durationMinutes) && Number.isFinite(rental.endsAt)) {
+        rental.startedAt = rental.endsAt - rental.durationMinutes * 60 * 1000 - 30 * 1000;
+      }
+
+      const isOpenTime = rental.durationMinutes === null && rental.endsAt === null;
+      if (
+        !Number.isFinite(rental.startedAt) ||
+        (!isOpenTime && (!Number.isInteger(rental.durationMinutes) || !Number.isFinite(rental.endsAt))) ||
+        (rental.rentalType === "byo" && !isOpenTime) ||
+        (rental.notified !== undefined && typeof rental.notified !== "boolean")
+      ) {
+        throw new Error("Saved rental data is incomplete.");
+      }
+
+      rental.notified = rental.notified ?? false;
     }
 
     return parsedRentals;
@@ -131,6 +225,7 @@ function loadRentals() {
       "Saved rentals could not be loaded. Check browser storage before starting new rentals.";
     selectedNotification.setAttribute("role", "alert");
     startRentalButton.disabled = true;
+    startByoButton.disabled = true;
     return {};
   }
 }
@@ -143,11 +238,23 @@ function saveRentals() {
     console.error("Could not save rentals:", error);
     storageReady = false;
     formMessage.textContent = "Rental changes could not be saved in this browser.";
+    byoFormMessage.textContent = "Rental changes could not be saved in this browser.";
     selectedNotification.textContent =
       "Storage is unavailable. Rental timers may not survive a page refresh.";
     selectedNotification.setAttribute("role", "alert");
+    startRentalButton.disabled = true;
+    startByoButton.disabled = true;
     return false;
   }
+}
+
+function calculateByoCharge(elapsedMilliseconds) {
+  const startedBlocks = Math.max(1, Math.ceil(elapsedMilliseconds / (45 * 60 * 1000)));
+  return startedBlocks * 50;
+}
+
+function formatPrice(amount) {
+  return `₱${amount}`;
 }
 
 function getSelectedCard() {
@@ -164,11 +271,13 @@ function selectUnit(card) {
 
   const rental = rentals[selectedUnitId];
   if (rental) {
-    const isOverdue = rental.endsAt <= Date.now();
+    const isOverdue = rental.endsAt !== null && rental.endsAt <= Date.now();
     selectedUnitLabel.innerHTML = `Selected: <strong>${rental.unitName}</strong>`;
     selectedNotification.textContent = isOverdue
       ? `Time is up for ${rental.unitName}. It was rented by ${rental.renterName}.`
-      : `${rental.unitName} (${rental.category}) is rented by ${rental.renterName}.`;
+      : rental.endsAt === null
+        ? `${rental.unitName} (${rental.category}) is rented by ${rental.renterName} with an open timer.`
+        : `${rental.unitName} (${rental.category}) is rented by ${rental.renterName}.`;
     selectedNotification.classList.toggle("is-expired", isOverdue);
     startRentalButton.disabled = true;
   } else {
@@ -179,6 +288,7 @@ function selectUnit(card) {
     startRentalButton.disabled = !storageReady;
   }
 
+  startByoButton.disabled = !storageReady;
   render();
 }
 
@@ -199,15 +309,30 @@ function formatTime(milliseconds) {
   return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
+function formatElapsed(milliseconds) {
+  const totalSeconds = Math.max(0, Math.floor(milliseconds / 1000));
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
+function formatClockTime(timestamp) {
+  return new Date(timestamp).toLocaleTimeString([], {
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
 function render() {
   const now = Date.now();
 
-  for (const [unitId, rental] of Object.entries(rentals)) {
-    if (rental.endsAt <= now && !rental.notified) {
+  for (const [rentalId, rental] of Object.entries(rentals)) {
+    if (rental.endsAt !== null && rental.endsAt <= now && !rental.notified) {
       rental.notified = true;
       if (saveRentals()) {
         addNotification(`Time is up! ${rental.unitName}, rented by ${rental.renterName}, is due back.`);
-        if (selectedUnitId === unitId) {
+        if (selectedUnitId === rentalId) {
           selectedNotification.textContent =
             `Time is up for ${rental.unitName}. It was rented by ${rental.renterName}.`;
           selectedNotification.classList.add("is-expired");
@@ -219,9 +344,10 @@ function render() {
   unitCards.forEach((card) => {
     const rental = rentals[card.dataset.unitId];
     const status = card.querySelector("[data-unit-status]");
+    const isOverdue = rental && rental.endsAt !== null && rental.endsAt <= now;
     card.classList.toggle("is-renting", Boolean(rental));
     status.textContent = rental
-      ? (rental.endsAt <= now ? "Time up" : "Rented")
+      ? (isOverdue ? "Time up" : rental.endsAt === null ? "Open timer" : "Rented")
       : "Available";
   });
 
@@ -242,13 +368,20 @@ function render() {
 
   for (const [unitId, rental] of Object.entries(rentals)) {
     const row = document.createElement("tr");
-    const isOverdue = rental.endsAt <= now;
+    const isOverdue = rental.endsAt !== null && rental.endsAt <= now;
+    const elapsed = now - rental.startedAt;
+    const isByo = rental.rentalType === "byo";
+    const timerAndCharge = isByo
+      ? `${formatElapsed(elapsed)} · ${formatPrice(calculateByoCharge(elapsed))}`
+      : rental.endsAt === null
+        ? formatElapsed(elapsed)
+        : isOverdue ? "00:00" : formatTime(rental.endsAt - now);
     const values = [
       rental.category,
       rental.unitName,
       rental.renterName,
-      `${rental.durationMinutes} min`,
-      isOverdue ? "00:00" : formatTime(rental.endsAt - now),
+      rental.endsAt === null ? "Open time" : `${rental.durationMinutes} min`,
+      timerAndCharge,
     ];
 
     values.forEach((value) => {
@@ -260,7 +393,7 @@ function render() {
     const statusCell = document.createElement("td");
     const statusBadge = document.createElement("span");
     statusBadge.className = `status-badge${isOverdue ? " is-renting" : ""}`;
-    statusBadge.textContent = isOverdue ? "Time up" : "Rented";
+    statusBadge.textContent = isOverdue ? "Time up" : isByo ? "BYO RC" : rental.endsAt === null ? "Open timer" : "Rented";
     statusCell.append(statusBadge);
     row.append(statusCell);
 
