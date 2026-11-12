@@ -262,6 +262,17 @@ h1 {
   margin-bottom: 10px;
 }
 
+.byo-panel form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+}
+
+.byo-panel form .button,
+.byo-panel form .form-message {
+  grid-column: 1 / -1;
+}
+
 .selected-unit {
   min-height: 42px;
   margin-block: 12px 18px;
@@ -567,6 +578,10 @@ td {
 
   .panel {
     padding: 18px;
+  }
+
+  .byo-panel form {
+    grid-template-columns: 1fr;
   }
 
   .section-heading {

@@ -23,7 +23,7 @@
       <section class="page-intro" aria-labelledby="page-title">
         <p class="eyebrow">Rental desk</p>
         <h1 id="page-title">Keep every run on time.</h1>
-        <p>Track fixed or open-time fleet rentals, plus Bring Your Own RC rentals at ₱50 per started 45 minutes.</p>
+        <p>Track fixed or open-time fleet rentals, plus Bring Your Own RC rentals with category-based, per-minute pricing.</p>
       </section>
 
       <section class="overview-grid" aria-label="Rental overview">
@@ -96,6 +96,21 @@
             <span class="unit-name">Truck Claw</span>
             <span class="unit-status" data-unit-status>Available</span>
           </button>
+          <button class="unit-card" type="button" data-unit-id="excavator1" data-unit-name="excavator1" data-category="mini" aria-pressed="false">
+            <span class="unit-category">mini</span>
+            <span class="unit-name">Excavator (1)</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="excavator2" data-unit-name="excavator2" data-category="mini" aria-pressed="false">
+            <span class="unit-category">mini</span>
+            <span class="unit-name">Excavator (2)</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
+          <button class="unit-card" type="button" data-unit-id="bulldozer-truck" data-unit-name="bulldozer-truck" data-category="mini" aria-pressed="false">
+            <span class="unit-category">1/12</span>
+            <span class="unit-name">Bulldozer Truck</span>
+            <span class="unit-status" data-unit-status>Available</span>
+          </button>
         </div>
       </section>
 
@@ -151,8 +166,17 @@
       <section class="panel byo-panel" aria-labelledby="byo-heading">
         <p class="eyebrow">Customer-owned car</p>
         <h2 id="byo-heading">Bring your own RC</h2>
-        <p class="rental-hint">Start an open timer for a customer's RC. The rental costs ₱50 per started 45 minutes.</p>
+        <p class="rental-hint">Choose the matching RC category. 1/10 costs ₱50 per 15 minutes; 1/12 and Mini cost ₱50 per 25 minutes. Charges are prorated by minute, with elapsed time rounded up.</p>
         <form id="byo-form">
+          <div class="form-field">
+            <label for="byo-category">RC category</label>
+            <select id="byo-category" name="category" required>
+              <option value="" selected disabled>Choose a category</option>
+              <option value="1/10">1/10 — ₱50 per 15 minutes</option>
+              <option value="1/12">1/12 — ₱50 per 25 minutes</option>
+              <option value="mini">Mini — ₱50 per 25 minutes</option>
+            </select>
+          </div>
           <div class="form-field">
             <label for="byo-renter-name">Renter name</label>
             <input

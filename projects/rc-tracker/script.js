@@ -13,12 +13,18 @@ const rentalRows = document.querySelector("#rental-rows");
 const formMessage = document.querySelector("#form-message");
 const byoForm = document.querySelector("#byo-form");
 const byoRenterInput = document.querySelector("#byo-renter-name");
+const byoCategoryInput = document.querySelector("#byo-category");
 const byoFormMessage = document.querySelector("#byo-form-message");
 const startRentalButton = document.querySelector("#start-rental-button");
 const startByoButton = document.querySelector("#start-byo-button");
 const activeRentalCount = document.querySelector("#active-rental-count");
 const unitCount = document.querySelector("#unit-count");
 const categoryCount = document.querySelector("#category-count");
+const byoPricing = {
+  "1/10": { amount: 50, intervalMinutes: 15 },
+  "1/12": { amount: 50, intervalMinutes: 25 },
+  mini: { amount: 50, intervalMinutes: 25 },
+};
 
 let selectedUnitId = "";
 let storageReady = true;
@@ -106,10 +112,17 @@ byoForm.addEventListener("submit", (event) => {
     return;
   }
 
+  const category = byoCategoryInput.value;
+  if (!Object.prototype.hasOwnProperty.call(byoPricing, category)) {
+    byoCategoryInput.focus();
+    byoFormMessage.textContent = "Choose an RC category.";
+    return;
+  }
+
   const rentalId = createByoRentalId();
   const startedAt = Date.now();
   rentals[rentalId] = {
-    category: "BYO RC",
+    category,
     unitName: "Customer-owned RC",
     renterName,
     rentalType: "byo",
@@ -124,9 +137,10 @@ byoForm.addEventListener("submit", (event) => {
     return;
   }
 
-  addNotification(`BYO RC rental started for ${renterName}.`);
+  addNotification(`BYO RC rental (${category}) started for ${renterName}.`);
   byoRenterInput.value = "";
-  byoFormMessage.textContent = `BYO RC timer started for ${renterName}.`;
+  byoCategoryInput.value = "";
+  byoFormMessage.textContent = `BYO RC timer (${category}) started for ${renterName}.`;
   render();
 });
 
@@ -147,8 +161,9 @@ rentalRows.addEventListener("click", (event) => {
 
   const elapsed = Math.max(0, returnedAt - rental.startedAt);
   const isByo = rental.rentalType === "byo";
+  const byoLabel = rental.category === "BYO RC" ? "BYO RC" : `BYO RC (${rental.category})`;
   const returnMessage = isByo
-    ? `${rental.renterName}'s BYO RC was returned at ${formatClockTime(returnedAt)} after ${formatElapsed(elapsed)}. Charge: ${formatPrice(calculateByoCharge(elapsed))}.`
+    ? `${rental.renterName}'s ${byoLabel} was returned at ${formatClockTime(returnedAt)} after ${formatElapsed(elapsed)}. Charge: ${formatPrice(calculateRentalCharge(rental, elapsed))}.`
     : rental.endsAt === null
       ? `${rental.renterName}'s open-time rental of ${rental.unitName} ended at ${formatClockTime(returnedAt)} after ${formatElapsed(elapsed)}.`
       : `${rental.unitName}, rented by ${rental.renterName}, has been marked as returned.`;
@@ -194,6 +209,14 @@ function loadRentals() {
 
       if (rental.rentalType === "byo" && !rentalId.startsWith("byo-")) {
         throw new Error("Saved BYO rental has an invalid ID.");
+      }
+
+      if (
+        rental.rentalType === "byo" &&
+        rental.category !== "BYO RC" &&
+        !Object.prototype.hasOwnProperty.call(byoPricing, rental.category)
+      ) {
+        throw new Error("Saved BYO rental has an unsupported pricing category.");
       }
 
       if (rental.rentalType === "fleet" && !unitCards.some((card) => card.dataset.unitId === rentalId)) {
@@ -248,13 +271,28 @@ function saveRentals() {
   }
 }
 
-function calculateByoCharge(elapsedMilliseconds) {
-  const startedBlocks = Math.max(1, Math.ceil(elapsedMilliseconds / (45 * 60 * 1000)));
-  return startedBlocks * 50;
+function calculateByoCharge(elapsedMilliseconds, category) {
+  const pricing = byoPricing[category];
+  if (!pricing) {
+    throw new Error(`Unsupported BYO pricing category: ${category}`);
+  }
+
+  const elapsedMinutes = Math.ceil(Math.max(0, elapsedMilliseconds) / (60 * 1000));
+  return elapsedMinutes * pricing.amount / pricing.intervalMinutes;
+}
+
+function calculateRentalCharge(rental, elapsedMilliseconds) {
+  if (rental.category === "BYO RC") {
+    // Keep active pre-category BYO rentals on their original pricing.
+    const startedBlocks = Math.max(1, Math.ceil(elapsedMilliseconds / (45 * 60 * 1000)));
+    return startedBlocks * 50;
+  }
+
+  return calculateByoCharge(elapsedMilliseconds, rental.category);
 }
 
 function formatPrice(amount) {
-  return `₱${amount}`;
+  return `₱${amount.toFixed(2)}`;
 }
 
 function getSelectedCard() {
@@ -372,7 +410,7 @@ function render() {
     const elapsed = now - rental.startedAt;
     const isByo = rental.rentalType === "byo";
     const timerAndCharge = isByo
-      ? `${formatElapsed(elapsed)} · ${formatPrice(calculateByoCharge(elapsed))}`
+      ? `${formatElapsed(elapsed)} · ${formatPrice(calculateRentalCharge(rental, elapsed))}`
       : rental.endsAt === null
         ? formatElapsed(elapsed)
         : isOverdue ? "00:00" : formatTime(rental.endsAt - now);
